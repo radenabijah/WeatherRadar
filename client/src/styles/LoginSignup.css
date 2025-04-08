@@ -1,0 +1,272 @@
+body {
+  background-image: url("../assets/images/weatherBG.png");
+  background-size: cover;
+  background-position: center;
+}
+
+
+/* Centering the form */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Glass effect with fallback */
+.auth-box {
+  background: rgba(255, 255, 255, 0.2); /* Transparent white */
+  -webkit-backdrop-filter: blur(10px); /* Safari */
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
+
+/* Safari fallback - if backdrop-filter is not supported */
+@supports not (backdrop-filter: blur(10px)) {
+  .auth-box {
+      background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Form styling */
+.auth-box h2 {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+/* Input Fields */
+.auth-box input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Buttons - Always Visible */
+.auth-box button,
+.auth-box a {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  background: #10b4dd;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 1; /* Always visible */
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Sign Up Button Specific Styling */
+.btn-signup {
+  background-color: #007bff;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.btn-signup:hover {
+  background-color: #0056b3;
+}
+
+/* Button Hover Effects */
+.auth-box button:hover,
+.auth-box a:hover {
+  background: #2358cc;
+  transform: scale(1.05);
+}
+
+/* Ensure error messages are black */
+.error-message {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 0, 0, 0.9);
+  color: black !important; /* FORCE black color */
+  font-size: 18px;
+  font-weight: bold;
+  padding: 15px 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out, shake 0.3s ease-in-out;
+  width: 80%;
+  max-width: 400px;
+}
+
+/* Ensuring black color in other potential areas */
+.auth-box .error-message, 
+.auth-container .error-message, 
+form .error-message {
+  color: black !important; /* Overrides any conflicting styles */
+}
+
+/* Fade-in effect */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+  }
+  to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+  }
+}
+
+/* Shake animation */
+@keyframes shake {
+  0%, 100% { transform: translate(-50%, -50%); }
+  20% { transform: translate(-52%, -50%); }
+  40% { transform: translate(-48%, -50%); }
+  60% { transform: translate(-52%, -50%); }
+  80% { transform: translate(-48%, -50%); }
+}
+
+
+
+/* Container to hold both elements side by side */
+.remember-forgot-container {
+  display: flex;
+  justify-content: space-between; /* Pushes elements apart */
+  align-items: center; /* Aligns items vertically centered */
+  font-size: 14px;
+  color: white;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* Remember Me Section */
+.remember-me {
+  display: flex;
+  align-items: center; /* Aligns checkbox and label vertically centered */
+  gap: 5px; /* Space between checkbox and label */
+  white-space: nowrap; /* Prevents text wrapping */
+}
+
+.remember-me label {
+  color: black; /* Change text color to black */
+}
+
+/* Checkbox */
+.remember-me input {
+  width: 15px;
+  height: 15px;
+  accent-color: #10b4dd; /* Change checkbox color */
+}
+
+/* Forgot Password Link - Same style as "Remember Me" */
+.forgot-password-text, .auth-box .forgot-password-text {
+  color: black !important;
+  text-decoration: none;
+  font-size: 14px; /* Matches "Remember Me" */
+  font-weight: 400; /* Normal weight (not bold) */
+  white-space: nowrap; /* Prevents text wrapping */
+}
+
+.forgot-password-text:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+
+/* Remove unwanted button styling */
+.auth-box a.forgot-password-text {
+  display: inline; 
+  width: auto;
+  background: none !important; 
+  border: none !important;
+  padding: 0; 
+  border-radius: 0; 
+  text-align: left;
+}
+
+/* Password Field Wrapper */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Password Toggle Icon */
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: gray;
+}
+
+.password-toggle:hover {
+  color: black;
+}
+
+.auth-box h2 {
+  text-align: center;
+  color: black !important;
+  font-weight: normal;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -55%);
+  }
+}
+
+.error-message.fade-out {
+  animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+/* Additional styling to ensure the error message is centered and positioned above the form */
+.error-message {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 0, 0, 0.9);
+  color: black !important;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 15px 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 80%;
+  max-width: 400px;
+}
+
+.corner-logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 90; /* Adjust size as needed */
+  z-index: 1000; /* Make sure it's above the background */
+}
+
+.login-page {
+  position: relative;
+}
