@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -17,10 +18,10 @@ app.use(
   })
 );
 
-mongoose.connect("mongodb://localhost:27017/Users", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
+
 
 // Register Route
 app.post("/register", async (req, res) => {
@@ -71,7 +72,7 @@ app.post("/forgot-password", (req, res) => {
   const { email } = req.body;
   UsersModel.findOne({ email }).then((user) => {
     if (!user) {
-      return res.send({ Status: "No account found with this email" });
+      return res.status(404).json({ Status: "No account found with this email" });
     }
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
@@ -88,7 +89,7 @@ app.post("/forgot-password", (req, res) => {
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: email, // <-- FIXED THIS LINE
+      to: email,
       subject: "Reset your password",
       text: `http://localhost:5173/reset-password/${user._id}/${token}`,
     };
@@ -128,3 +129,4 @@ app.post("/reset-password/:id/:token", (req, res) => {
 app.listen(3001, () => {
   console.log("✅ Server is running on http://localhost:3001");
 });
+
