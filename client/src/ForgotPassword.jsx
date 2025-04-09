@@ -13,7 +13,7 @@ function ForgotPassword() {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3001/forgot-password", { email })
+      .post(`${import.meta.env.VITE_API_BASE_URL}/forgot-password`, { email })
       .then((res) => {
         if (res.data.Status === "Success") {
           setMessage("✅ Reset link sent! Check your email.");

@@ -24,7 +24,7 @@ function Signup() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3001/register", {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/register`, {
         name,
         email,
         password,

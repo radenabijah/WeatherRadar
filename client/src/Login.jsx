@@ -25,7 +25,7 @@ function Login() {
     setError(""); // Clear previous errors
 
     axios
-      .post("http://localhost:3001/login", { email, password })
+      .post(`${import.meta.env.VITE_API_BASE_URL}/login`, { email, password })
       .then((result) => {
         console.log(result);
 

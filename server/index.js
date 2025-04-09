@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -11,9 +10,11 @@ const nodemailer = require("nodemailer");
 
 const app = express();
 app.use(express.json());
+
+// Use CLIENT_URL from .env
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     credentials: true,
   })
 );
@@ -21,7 +22,6 @@ app.use(
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ Connected to MongoDB"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
-
 
 // Register Route
 app.post("/register", async (req, res) => {
@@ -91,7 +91,7 @@ app.post("/forgot-password", (req, res) => {
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Reset your password",
-      text: `http://localhost:5173/reset-password/${user._id}/${token}`,
+      text: `${process.env.CLIENT_URL}/reset-password/${user._id}/${token}`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -127,6 +127,5 @@ app.post("/reset-password/:id/:token", (req, res) => {
 });
 
 app.listen(3001, () => {
-  console.log("✅ Server is running on http://localhost:3001");
+  console.log("✅ Server is running");
 });
-

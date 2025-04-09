@@ -20,7 +20,7 @@ function ResetPassword() {
     }
 
     axios
-      .post(`http://localhost:3001/reset-password/${id}/${token}`, { password })
+      .post(`${import.meta.env.VITE_API_BASE_URL}/reset-password/${id}/${token}`, { password })
       .then((res) => {
         if (res.data.Status === "Success") {
           setMessage("Password updated successfully!");
