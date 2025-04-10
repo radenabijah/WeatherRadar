@@ -48,12 +48,12 @@ const MainWeather = ({ weatherData }) => {
         padding: "30px",
       }}
     >
-      <div style={{ fontSize: "20px" }}>Now</div>
+      <div style={{ fontSize: "30px" }}>Now</div>
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          fontSize: "35px",
+          fontSize: "45px",
           fontWeight: "bold",
         }}
       >
