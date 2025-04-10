@@ -10,7 +10,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
       style={{
         backgroundColor: "#4B5563",
         color: "white",
-        width: "840px",
+        width: "900px",
         borderRadius: "0.5rem",
         padding: "30px",
       }}
