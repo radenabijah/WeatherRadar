@@ -73,8 +73,7 @@ function Login() {
   }, [error]);
 
   return (
-    <div className="login-page">
-      <img src="/weather-news.png" alt="Logo" className="corner-logo" />
+    <div>
 
       <div className="auth-container">
         {/* Display error message above the login heading */}
