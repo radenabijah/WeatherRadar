@@ -44,7 +44,7 @@ const MainWeather = ({ weatherData }) => {
         backgroundColor: "#4B5563",
         color: "white",
         borderRadius: "1rem",
-        width: "250px",
+        width: "300px",
         padding: "30px",
       }}
     >
