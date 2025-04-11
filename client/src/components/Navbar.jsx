@@ -81,8 +81,8 @@ const Navbar = ({ onSearch }) => {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "6px", paddingLeft: "80px" }}>
-          <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle", paddingLeft: "80px" }} />
-          <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
+          <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle", }} />
+          <p style={{ fontSize: "16px", margin: 0, lineHeight: 1, paddingLeft: "80px" }}>
             Current Location
           </p>
         </div>
