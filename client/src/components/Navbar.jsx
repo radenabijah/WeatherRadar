@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Navbar = ({ onSearch }) => {
   const [searchCity, setSearchCity] = useState("");
@@ -77,16 +78,19 @@ const Navbar = ({ onSearch }) => {
           color: "white",
           gap: "6px",
           borderRadius: "6px",
-          
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle", }} />
+          <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle" }} />
           <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
             Current Location
           </p>
         </div>
       </div>
+      {/* Profile Icon */}
+      <AccountCircleIcon
+        style={{ fontSize: "28px", marginLeft: "10px", cursor: "pointer" }}
+      />
     </nav>
   );
 };
