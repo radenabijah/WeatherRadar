@@ -64,9 +64,7 @@ function Home() {
         <div style={{ display: "flex", padding: "30px", gap: "20px" }}>
           <div style={{ flex: "1", marginRight: "10px" }}>
             <MainWeather weatherData={weatherData} />
-            <p style={{ fontWeight: "700", fontSize: "20px", marginTop: "20px" }}>
-              5 Days Forecast
-            </p>
+            
             {fiveDayForecast && <FiveDayForecast forecastData={fiveDayForecast} />}
           </div>
           <div
