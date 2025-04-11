@@ -5,7 +5,7 @@ import Login from "./Login";
 import Home from "./Home";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
-import './global.css';
+import './Global.css';
 
 
 function App() {
