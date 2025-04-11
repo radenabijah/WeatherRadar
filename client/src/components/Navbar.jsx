@@ -65,28 +65,28 @@ const Navbar = ({ onSearch }) => {
 
       {/* Current Location Button */}
       <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          fontSize: "20px",
-          fontWeight: "700",
-          backgroundColor: "#4B5550",
-          height: "45px",
-          width: "auto",
-          color: "white",
-          gap: "6px",
-          borderRadius: "6px",
-          paddingLeft: "80px",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", paddingLeft: "10px" }}>
-          <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle" }} />
-          <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
-            Current Location
-          </p>
-        </div>
-      </div>
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start", // Align the entire button to the left
+    fontSize: "20px",
+    fontWeight: "700",
+    backgroundColor: "#4B5550",
+    height: "45px",
+    width: "auto",
+    color: "white",
+    gap: "6px",
+    borderRadius: "6px",
+  }}
+>
+  <div style={{ display: "flex", alignItems: "center", gap: "6px", paddingLeft: "10px" }}>
+    <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle" }} />
+    <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
+      Current Location
+    </p>
+  </div>
+</div>
+
     </nav>
   );
 };
