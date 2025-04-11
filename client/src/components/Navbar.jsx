@@ -13,79 +13,36 @@ const Navbar = ({ onSearch }) => {
   };
 
   return (
-    <nav
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginTop: "10px",
-        padding: "10px 30px",
-      }}
+    <nav className="navbar">
+  <div className="navbar-left">
+    <img src="/weather-news.png" alt="WeatherRadar Logo" className="logo" />
+    <p className="brand">WeatherRadar</p>
+  </div>
+
+  <div className="navbar-center">
+    <TextField
+      placeholder="Search city"
+      variant="outlined"
+      value={searchCity}
+      onChange={(e) => setSearchCity(e.target.value)}
+      className="search-input"
+      InputProps={{ style: { backgroundColor: "white", borderRadius: "2rem" } }}
+    />
+    <Button
+      variant="contained"
+      onClick={handleSearchClick}
+      className="search-button"
     >
-      {/* WeatherRadar logo and text */}
-      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-  <img
-    src="/weather-news.png"
-    alt="WeatherRadar Logo"
-    style={{ height: "70px", verticalAlign: "middle" }}
-  />
-  <p
-    style={{
-      fontWeight: "bold",
-      fontSize: "24px",
-      margin: 0,
-      lineHeight: 1,
-    }}
-  >
-    WeatherRadar
-  </p>
-</div>
+      Search
+    </Button>
+  </div>
 
+  <div className="navbar-right">
+    <GpsFixedIcon style={{ fontSize: "24px" }} />
+    <p className="current-location">Current Location</p>
+  </div>
+</nav>
 
-      {/* Search input and button */}
-      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-        <TextField
-          style={{
-            backgroundColor: "white",
-            borderRadius: "2rem",
-            width: "28rem",
-          }}
-          placeholder="Search city"
-          variant="outlined"
-          value={searchCity}
-          onChange={(e) => setSearchCity(e.target.value)}
-        />
-        <Button
-          variant="contained"
-          onClick={handleSearchClick}
-          style={{ borderRadius: "6px", backgroundColor: "#4B5550" }}
-        >
-          Search
-        </Button>
-      </div>
-
-      {/* Current Location Button */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "20px",
-          fontWeight: "700",
-          backgroundColor: "#4B5550",
-          height: "45px",
-          width: "180px",
-          color: "white",
-          gap: "6px",
-          borderRadius: "6px",
-        }}
-      >
-        <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle" }} />
-        <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
-          Current Location
-        </p>
-      </div>
-    </nav>
   );
 };
 

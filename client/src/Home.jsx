@@ -40,7 +40,7 @@ function Home() {
         fetchAirQualityData(data.coord.lat, data.coord.lon);
         axios.get(
           `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
-        )
+        );
       });
   };
 
@@ -51,16 +51,20 @@ function Home() {
   return (
     <div>
       <Navbar onSearch={handleSearch} />
-      {weatherData && airQualityData &&(
-        <div style={{ display: "flex", padding: "30px", gap: "20px" }}>
-          <div style={{ flex: "1", marginRight: "10px" }}>
-            <MainWeather weatherData={weatherData} />
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", flex: "0.5", gap: "20px" }}>
-          <TodayHighlights weatherData={weatherData} airQualityData={airQualityData}  />
-          </div>
-        </div>
-      )}
+      {weatherData && airQualityData && (
+  <div className="weather-layout">
+    <div className="weather-left">
+      <MainWeather weatherData={weatherData} />
+    </div>
+    <div className="weather-right">
+      <TodayHighlights
+        weatherData={weatherData}
+        airQualityData={airQualityData}
+      />
+    </div>
+  </div>
+)}
+
     </div>
   );
 }

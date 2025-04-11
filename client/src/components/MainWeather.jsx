@@ -1,9 +1,9 @@
 import React from "react";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
-import CloudIcon from '@mui/icons-material/Cloud';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CloudIcon from "@mui/icons-material/Cloud";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const MainWeather = ({ weatherData }) => {
   const temperatureCelsius = weatherData?.main?.temp || "N/A";
@@ -34,40 +34,30 @@ const MainWeather = ({ weatherData }) => {
         />
       );
     } else {
-      return <CloudIcon style={{ marginLeft: "10px", fontSize: "3rem", color: "white" }}/>
+      return (
+        <CloudIcon
+          style={{ marginLeft: "10px", fontSize: "3rem", color: "white" }}
+        />
+      );
     }
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#4B5563",
-        color: "white",
-        borderRadius: "1rem",
-        width: "300px",
-        padding: "30px",
-      }}
-    >
-      <div style={{ fontSize: "30px" }}>Now</div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          fontSize: "45px",
-          fontWeight: "bold",
-        }}
-      >
-        {temperatureCelsius}°C{renderTemperatureIcon()}
+    <div className="main-weather-card">
+      <div className="weather-title">Now</div>
+      <div className="weather-temp">
+        {temperatureCelsius}°C
+        {renderTemperatureIcon()}
       </div>
-      <div style={{fontSize:'20px', marginTop:'4px', fontWeight:'bold'}}>{weatherDDescription}</div>
-      <div style={{marginTop:'1rem'}}>
-        <div style={{display: 'flex', alignItems:'center'}}>
-          <CalendarMonthIcon/>
+      <div className="weather-desc">{weatherDDescription}</div>
+      <div className="weather-meta">
+        <div className="weather-meta-item">
+          <CalendarMonthIcon />
           {currentDate}
         </div>
-        <div style={{marginTop:'4px', display:'flex', alignItems:'center'}}>
-          <LocationOnIcon/>
-          {cityName},{countryName}
+        <div className="weather-meta-item">
+          <LocationOnIcon />
+          {cityName}, {countryName}
         </div>
       </div>
     </div>

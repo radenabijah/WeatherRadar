@@ -10,8 +10,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* More reliable on mobile than height */
+  padding: 20px 0;   /* Prevents form from touching top/bottom edges */
+  box-sizing: border-box; /* Ensures padding is included in height */
 }
+
 
 /* Glass effect with fallback */
 .auth-box {
@@ -21,7 +24,8 @@ body {
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 350px;
+  width: 90%;
+  max-width: 350px;
 }
 
 /* Safari fallback - if backdrop-filter is not supported */
@@ -36,6 +40,7 @@ body {
   text-align: center;
   color: white;
   font-weight: bold;
+  font-size: clamp(1.5rem, 5vw, 2rem);
 }
 
 /* Input Fields */
