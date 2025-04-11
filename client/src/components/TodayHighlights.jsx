@@ -53,10 +53,10 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
       style={{
         backgroundColor: "#4B5563",
         color: "white",
-        width: "880px",
+        width: "830px",
         borderRadius: "0.5rem",
         padding: "30px",
-        marginLeft: "-20px"
+        marginLeft: "-50px"
       }}
     >
       <div style={{ fontSize: "30px" }}>Today's Highlights</div>
@@ -150,7 +150,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
                 display: "flex",
                 justifyContent: "space-between",
                 padding: "10px",
-                gap: "30px",
+                gap: "35px",
               }}
             >
               <div>
