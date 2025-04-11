@@ -49,7 +49,7 @@ const FiveDayForecast = ({ forecastData }) => {
         <div
           key={index}
           style={{
-            marginBottom: "15px",
+            marginBottom: "30px", // increased space
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
