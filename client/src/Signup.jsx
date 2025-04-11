@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./styles/LoginSignup.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // New state for showing password
+  const [showPassword, setShowPassword] = useState(false); // To toggle password visibility
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError(""); // Clear previous errors
 
     if (!name || !email || !password) {
       setError("⚠️ All fields are required!");
@@ -95,34 +96,27 @@ function Signup() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-3 password-container">
             <label htmlFor="password">
               <strong>Password</strong>
             </label>
-            <div style={{ position: "relative" }}>
+            <div className="password-wrapper">
               <input
-                type={showPassword ? "text" : "password"} // Toggle between text and password
+                type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder="Enter Password"
-                name="password"
                 className="form-control rounded-0"
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  border: "none",
-                  background: "none",
-                  cursor: "pointer",
-                }}
-              >
-                {showPassword ? "Hide" : "Show"}
-              </button>
+              {password.length > 0 && (
+                <span
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              )}
             </div>
           </div>
           <button type="submit" className="btn btn-success w-100 rounded-0">
