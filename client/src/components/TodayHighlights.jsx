@@ -149,6 +149,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
                 display: "flex",
                 justifyContent: "space-between",
                 padding: "10px",
+                gap: "30px",
               }}
             >
               <div>
