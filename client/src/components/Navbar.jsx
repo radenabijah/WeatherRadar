@@ -24,23 +24,22 @@ const Navbar = ({ onSearch }) => {
     >
       {/* WeatherRadar logo and text */}
       <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-  <img
-    src="/weather-news.png"
-    alt="WeatherRadar Logo"
-    style={{ height: "70px", verticalAlign: "middle" }}
-  />
-  <p
-    style={{
-      fontWeight: "bold",
-      fontSize: "24px",
-      margin: 0,
-      lineHeight: 1,
-    }}
-  >
-    WeatherRadar
-  </p>
-</div>
-
+        <img
+          src="/weather-news.png"
+          alt="WeatherRadar Logo"
+          style={{ height: "70px", verticalAlign: "middle" }}
+        />
+        <p
+          style={{
+            fontWeight: "bold",
+            fontSize: "24px",
+            margin: 0,
+            lineHeight: 1,
+          }}
+        >
+          WeatherRadar
+        </p>
+      </div>
 
       {/* Search input and button */}
       <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -80,10 +79,12 @@ const Navbar = ({ onSearch }) => {
           borderRadius: "6px",
         }}
       >
-        <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle" }} />
-        <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
-          Current Location
-        </p>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle" }} />
+          <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
+            Current Location
+          </p>
+        </div>
       </div>
     </nav>
   );
