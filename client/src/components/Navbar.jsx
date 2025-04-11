@@ -6,18 +6,25 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Navbar = ({ onSearch }) => {
   const [searchCity, setSearchCity] = useState("");
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSearchClick = () => {
-    const isValid = /^[a-zA-Z\s]+$/.test(searchCity.trim()); // letters and spaces only
+  const handleSearchClick = async () => {
+    if (!searchCity.trim()) return;
 
-    if (!searchCity.trim()) {
-      setError("Please enter a city or country.");
-    } else if (!isValid) {
-      setError("Search must only contain letters and spaces.");
-    } else {
-      setError(""); // clear any previous errors
-      onSearch(searchCity);
+    try {
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=f7b40973400151ea978b452ce85efaea`
+      );
+      const data = await res.json();
+
+      if (data.cod !== 200) {
+        setErrorMessage("⚠️ City not found. Please enter a valid city.");
+      } else {
+        setErrorMessage(""); // Clear error
+        onSearch(data); // Pass the data to parent
+      }
+    } catch (err) {
+      setErrorMessage("❌ Failed to fetch data. Please try again.");
     }
   };
 
@@ -32,7 +39,7 @@ const Navbar = ({ onSearch }) => {
         flexWrap: "wrap",
       }}
     >
-      {/* Logo */}
+      {/* WeatherRadar logo and text */}
       <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
         <img
           src="/weather-news.png"
@@ -51,8 +58,8 @@ const Navbar = ({ onSearch }) => {
         </p>
       </div>
 
-      {/* Search + Error Message */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      {/* Search input and error */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <TextField
             style={{
@@ -64,8 +71,6 @@ const Navbar = ({ onSearch }) => {
             variant="outlined"
             value={searchCity}
             onChange={(e) => setSearchCity(e.target.value)}
-            error={!!error}
-            helperText={error}
           />
           <Button
             variant="contained"
@@ -75,6 +80,9 @@ const Navbar = ({ onSearch }) => {
             Search
           </Button>
         </div>
+        {errorMessage && (
+          <span style={{ color: "red", fontSize: "14px" }}>{errorMessage}</span>
+        )}
       </div>
 
       {/* Current Location Button */}
@@ -94,12 +102,8 @@ const Navbar = ({ onSearch }) => {
           marginRight: "10px",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle" }} />
-          <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
-            Current Location
-          </p>
-        </div>
+        <GpsFixedIcon style={{ fontSize: "24px" }} />
+        <p style={{ fontSize: "16px", margin: 0 }}>Current Location</p>
       </div>
 
       {/* Profile Icon */}
