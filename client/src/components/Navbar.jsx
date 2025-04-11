@@ -19,10 +19,10 @@ const Navbar = ({ onSearch }) => {
 
       if (data.cod !== 200) {
         setErrorMessage("⚠️ City not found. Please enter a valid city.");
-        setTimeout(() => setErrorMessage(""), 1000);
+        setTimeout(() => setErrorMessage(""), 2000);
       } else {
         setErrorMessage("");
-        onSearch(searchCity); // ✅ Pass just the string name
+        onSearch(searchCity); // Pass just the string name
       }
       
     } catch (err) {
