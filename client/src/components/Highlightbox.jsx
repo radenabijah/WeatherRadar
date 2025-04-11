@@ -12,8 +12,8 @@ const HighlightBox = ({ title, value, Icon }) => {
         color: "white",
         padding: "1rem",
         borderRadius: "0.5rem",
-        width: "185px",
-        height: "200px",
+        width: "190px",
+        height: "150px",
       }}
     >
       <div>
