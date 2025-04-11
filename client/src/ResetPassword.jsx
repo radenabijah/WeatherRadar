@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import the icons
 
 function ResetPassword() {
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // To toggle password visibility
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const { id, token } = useParams();
@@ -41,21 +43,32 @@ function ResetPassword() {
           Reset Password
         </h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
+          <div className="mb-3 password-container">
             <label htmlFor="password">
               <strong>New Password</strong>
             </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter password"
-              autoComplete="off"
-              name="password"
-              className="form-control rounded-0"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder="Enter password"
+                autoComplete="off"
+                name="password"
+                className="form-control rounded-0"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              {password.length > 0 && (
+                <span
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              )}
+            </div>
           </div>
+
           <button type="submit" className="btn btn-primary w-100 rounded-0">
             Update
           </button>
