@@ -27,10 +27,47 @@ const Navbar = ({ onSearch }) => {
       
     } catch (err) {
       setErrorMessage("❌ Failed to fetch data. Please try again.");
-      setTimeout(() => setErrorMessage(""), 1000); // Clear error after 1 second
+      setTimeout(() => setErrorMessage(""), 2000); // Clear error after 1 second
     }
   };
-
+  const handleCurrentLocationClick = () => {
+    if (!navigator.geolocation) {
+      setErrorMessage("❌ Geolocation not supported by your browser.");
+      setTimeout(() => setErrorMessage(""), 2000);
+      return;
+    }
+  
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        const API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+  
+        try {
+          const res = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`
+          );
+          const data = await res.json();
+  
+          if (data.cod === 200) {
+            setSearchCity(data.name); // show city in search bar
+            onSearch(data.name); // trigger search using city name
+            setErrorMessage("");
+          } else {
+            setErrorMessage("⚠️ Unable to retrieve city from location.");
+            setTimeout(() => setErrorMessage(""), 2000);
+          }
+        } catch (error) {
+          setErrorMessage("❌ Failed to fetch your location.");
+          setTimeout(() => setErrorMessage(""), 2000);
+        }
+      },
+      () => {
+        setErrorMessage("⚠️ Location permission denied.");
+        setTimeout(() => setErrorMessage(""), 2000);
+      }
+    );
+  };
+  
   return (
     <nav
       style={{
@@ -98,25 +135,26 @@ const Navbar = ({ onSearch }) => {
       </div>
 
       {/* Current Location Button */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          fontSize: "20px",
-          fontWeight: "700",
-          backgroundColor: "#4B5550",
-          height: "45px",
-          width: "auto",
-          color: "white",
-          gap: "6px",
-          borderRadius: "6px",
-          marginRight: "10px",
-        }}
-      >
-        <GpsFixedIcon style={{ fontSize: "24px" }} />
-        <p style={{ fontSize: "16px", margin: 0 }}>Current Location</p>
-      </div>
+      <Button
+  variant="contained"
+  onClick={handleCurrentLocationClick}
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "16px",
+    fontWeight: "600",
+    backgroundColor: "#4B5550",
+    height: "45px",
+    color: "white",
+    gap: "6px",
+    borderRadius: "6px",
+  }}
+>
+  <GpsFixedIcon style={{ fontSize: "24px" }} />
+  Current Location
+</Button>
+
 
       {/* Profile Icon */}
       <AccountCircleIcon
