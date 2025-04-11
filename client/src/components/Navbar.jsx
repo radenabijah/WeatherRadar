@@ -80,7 +80,7 @@ const Navbar = ({ onSearch }) => {
           paddingLeft: "80px",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", paddingLeft: "10px" }}>
           <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle" }} />
           <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
             Current Location
