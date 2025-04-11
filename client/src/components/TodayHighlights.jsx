@@ -96,7 +96,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
             padding: "1rem",
             borderRadius: "0.5rem",
             marginTop: "11px",
-            width: "370px",
+            width: "100%",
           }}
         >
           <div
@@ -114,7 +114,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
                 fontWeight: "700",
                 backgroundColor: getAQIColor(airQualityIndex),
                 height: "20px",
-                width: "70px",
+                width: "100%",
                 borderRadius: "6px",
                 display: "flex",
                 justifyContent: "center",
@@ -160,7 +160,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
             padding: "1rem",
             borderRadius: "0.5rem",
             marginTop: "11px",
-            width: "385px",
+            width: "100%",
           }}
         >
           <div style={{ fontSize: "22px" }}>
