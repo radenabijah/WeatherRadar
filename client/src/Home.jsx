@@ -65,7 +65,11 @@ function Home() {
           <div style={{ flex: "1", marginRight: "10px" }}>
             <MainWeather weatherData={weatherData} />
             
-            {fiveDayForecast && <FiveDayForecast forecastData={fiveDayForecast} />}
+            {fiveDayForecast && (
+  <div style={{ marginTop: "20px" }}>
+    <FiveDayForecast forecastData={fiveDayForecast} />
+  </div>
+)}
           </div>
           <div
             style={{
