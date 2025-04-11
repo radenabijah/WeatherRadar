@@ -15,7 +15,7 @@ const FiveDayForecast = ({ forecastData }) => {
         backgroundColor: "#4B5563",
         color: "white",
         borderRadius: "0.5rem",
-        width: "200px",
+        width: "300px",
         paddingLeft: "15px",
         paddingRight:'15px',
         paddingTop: "15px",
@@ -36,17 +36,17 @@ const FiveDayForecast = ({ forecastData }) => {
           }}
         >
           <div>
-            <div style={{ fontSize: "15px", fontWeight: "bold" }}>
+            <div style={{ fontSize: "20px", fontWeight: "bold" }}>
               {Math.round(item.main.temp)}°c
             </div>
           </div>
           <div>
-            <div style={{ fontSize: "15px", fontWeight: "bold" }}>
+            <div style={{ fontSize: "20px", fontWeight: "bold" }}>
               {formatDate(item.dt_txt)}
             </div>
           </div>
           <div>
-            <div style={{ fontSize: "15px" }}>
+            <div style={{ fontSize: "20px" }}>
               {item.weather[0].description}
             </div>
           </div>

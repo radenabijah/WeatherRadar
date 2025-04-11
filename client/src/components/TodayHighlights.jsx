@@ -3,9 +3,9 @@ import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
 import InvertColorsIcon from "@mui/icons-material/InvertColors";
 import HighlightBox from "./Highlightbox";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import CompressIcon from '@mui/icons-material/Compress';
-import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import CompressIcon from "@mui/icons-material/Compress";
+import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 
 const TodayHighlights = ({ weatherData, airQualityData }) => {
   const { main, wind, visibility, sys } = weatherData;
@@ -39,7 +39,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
     {
       title: "Visibility",
       value: `${visibility / 1000} km`,
-      Icon:  VisibilityIcon,
+      Icon: VisibilityIcon,
     },
     {
       title: "Feels Like",
@@ -53,12 +53,12 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
       style={{
         backgroundColor: "#4B5563",
         color: "white",
-        width: "840px",
+        width: "1000px",
         borderRadius: "0.5rem",
         padding: "30px",
       }}
     >
-      <div style={{ fontSize: "20px" }}>Today's Highlights</div>
+      <div style={{ fontSize: "30px" }}>Today's Highlights</div>
       <div
         style={{
           display: "flex",
@@ -139,19 +139,31 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
             padding: "1rem",
             borderRadius: "0.5rem",
             marginTop: "11px",
-            width: "385px",
+            width: "370px",
           }}
         >
-          <div style={{ fontSize: "22px", }}>
+          <div style={{ fontSize: "22px" }}>
             <p>Sunrise And Sunset</p>
-            <div style={{ display: "flex", justifyContent: "space-between" ,padding:'10px'}}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "10px",
+              }}
+            >
               <div>
-                <WbSunnyIcon style={{ fontSize: "40px",marginLeft:'30px' }} />
-                <p style={{ fontSize: "25px",marginLeft:'20px' }} >{new Date(sys.sunrise * 1000).toLocaleTimeString()}</p>
+                <WbSunnyIcon style={{ fontSize: "40px", marginLeft: "30px" }} />
+                <p style={{ fontSize: "25px", marginLeft: "20px" }}>
+                  {new Date(sys.sunrise * 1000).toLocaleTimeString()}
+                </p>
               </div>
               <div>
-                <NightsStayIcon style={{ fontSize: "40px",marginRight:'35px' }} />
-                <p style={{ fontSize: "25px",marginRight:'50px' }} >{new Date(sys.sunset * 1000).toLocaleTimeString()}</p>
+                <NightsStayIcon
+                  style={{ fontSize: "40px", marginRight: "35px" }}
+                />
+                <p style={{ fontSize: "25px", marginRight: "50px" }}>
+                  {new Date(sys.sunset * 1000).toLocaleTimeString()}
+                </p>
               </div>
             </div>
           </div>
