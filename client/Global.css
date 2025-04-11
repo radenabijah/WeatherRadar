@@ -314,4 +314,134 @@
     font-size: 30px;
     margin: 0;
   }
-  
+  /* Global styles for other parts of your app */
+
+/* Centering the form */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px 0;
+  box-sizing: border-box;
+}
+
+/* Other global styles... */
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .auth-box {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .auth-container {
+    padding: 10px;
+  }
+
+  .auth-box h2 {
+    font-size: 20px;
+  }
+
+  .auth-box input,
+  .auth-box button {
+    font-size: 14px;
+  }
+
+  .remember-forgot-container {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+  }
+
+  .remember-me {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-box {
+    width: 95%;
+  }
+
+  .auth-box h2 {
+    font-size: 18px;
+  }
+
+  .auth-box input,
+  .auth-box button {
+    font-size: 12px;
+  }
+
+  .remember-me label,
+  .forgot-password-text {
+    font-size: 12px;
+  }
+
+  .auth-container {
+    padding: 5px;
+  }
+}
+
+  /* Centering the form */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .auth-box {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .auth-container {
+    padding: 10px;
+  }
+
+  .auth-box h2 {
+    font-size: 20px;
+  }
+
+  .auth-box input,
+  .auth-box button {
+    font-size: 14px;
+  }
+
+  .remember-forgot-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .remember-me {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-box {
+    width: 95%;
+  }
+
+  .auth-box h2 {
+    font-size: 18px;
+  }
+
+  .auth-box input,
+  .auth-box button {
+    font-size: 12px;
+  }
+
+  .remember-me label,
+  .forgot-password-text {
+    font-size: 12px;
+  }
+
+  .auth-container {
+    padding: 5px;
+  }
+}
