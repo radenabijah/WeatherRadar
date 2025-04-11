@@ -73,10 +73,11 @@ const Navbar = ({ onSearch }) => {
           fontWeight: "700",
           backgroundColor: "#4B5550",
           height: "45px",
-          width: "180px",
+          width: "auto",
           color: "white",
           gap: "6px",
           borderRadius: "6px",
+          paddingLeft: "10px",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
