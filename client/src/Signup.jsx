@@ -8,6 +8,7 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // New state for showing password
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -98,14 +99,31 @@ function Signup() {
             <label htmlFor="password">
               <strong>Password</strong>
             </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter Password"
-              name="password"
-              className="form-control rounded-0"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"} // Toggle between text and password
+                id="password"
+                placeholder="Enter Password"
+                name="password"
+                className="form-control rounded-0"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  border: "none",
+                  background: "none",
+                  cursor: "pointer",
+                }}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
           </div>
           <button type="submit" className="btn btn-success w-100 rounded-0">
             Register
