@@ -174,37 +174,49 @@ const Navbar = ({ onSearch }) => {
       </nav>
 
       {/* Sidebar */}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          right: sidebarOpen ? 0 : "-300px",
-          height: "100vh",
-          width: "300px",
-          backgroundColor: "#f7f7f7",
-          boxShadow: "-2px 0 8px rgba(0, 0, 0, 0.1)",
-          transition: "right 0.3s ease-in-out",
-          padding: "20px",
-          zIndex: 999,
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <CloseIcon
-            onClick={toggleSidebar}
-            style={{ cursor: "pointer", fontSize: "28px" }}
-          />
-        </div>
-        <h3 style={{ marginTop: "20px" }}>👤 Profile</h3>
-        <p style={{ marginTop: "10px" }}>Username: johndoe</p>
-        <p>Email: johndoe@example.com</p>
-        <Button
-          variant="contained"
-          color="error"
-          style={{ marginTop: "20px" }}
-        >
-          Logout
-        </Button>
-      </div>
+<div
+  style={{
+    position: "fixed",
+    top: 0,
+    right: sidebarOpen ? 0 : "-300px",
+    height: "100vh",
+    width: "300px",
+    backgroundColor: "rgba(255, 255, 255, 0.85)", // Transparent background
+    backdropFilter: "blur(10px)", // Optional: adds blur effect behind sidebar
+    boxShadow: "-2px 0 8px rgba(0, 0, 0, 0.1)",
+    transition: "right 0.3s ease-in-out",
+    padding: "20px",
+    zIndex: 999,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  }}
+>
+  <div>
+    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      <CloseIcon
+        onClick={toggleSidebar}
+        style={{ cursor: "pointer", fontSize: "28px" }}
+      />
+    </div>
+    <h3 style={{ marginTop: "20px" }}>Profile</h3>
+    <p style={{ marginTop: "10px" }}>Username: johndoe</p>
+    <p>Email: johndoe@example.com</p>
+  </div>
+
+  {/* Logout Button at Bottom */}
+  <Button
+    variant="contained"
+    color="error"
+    onClick={() => {
+      localStorage.clear(); // or remove specific auth token
+      window.location.href = "/login"; // Redirect to login
+    }}
+  >
+    Logout
+  </Button>
+</div>
+
     </>
   );
 };
