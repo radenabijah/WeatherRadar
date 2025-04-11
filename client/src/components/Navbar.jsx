@@ -68,7 +68,7 @@ const Navbar = ({ onSearch }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           fontSize: "20px",
           fontWeight: "700",
           backgroundColor: "#4B5550",
@@ -79,7 +79,7 @@ const Navbar = ({ onSearch }) => {
           borderRadius: "6px",
         }}
       >
-        <div style={{ marginLeft: "-10px", display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle" }} />
           <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
             Current Location
