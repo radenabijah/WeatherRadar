@@ -78,6 +78,7 @@ const Navbar = ({ onSearch }) => {
           color: "white",
           gap: "6px",
           borderRadius: "6px",
+          marginRight: "10px",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -89,7 +90,7 @@ const Navbar = ({ onSearch }) => {
       </div>
       {/* Profile Icon */}
       <AccountCircleIcon
-        style={{ fontSize: "80px", marginLeft: "10px", cursor: "pointer" }}
+        style={{ fontSize: "60px", marginLeft: "10px", cursor: "pointer" }}
       />
     </nav>
   );
