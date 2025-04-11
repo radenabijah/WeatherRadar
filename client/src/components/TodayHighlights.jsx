@@ -2,7 +2,7 @@ import AirIcon from "@mui/icons-material/Air";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
 import InvertColorsIcon from "@mui/icons-material/InvertColors";
-import HighlightBox from "./Highlightbox";
+import HighlightBox from "./Highlightbox"; // Ensure this import is correct
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CompressIcon from "@mui/icons-material/Compress";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
@@ -56,25 +56,24 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
       minute: "2-digit",
     });
 
-    const highlights = [
-      { title: "Humidity", value: `${main.humidity}%`, Icon: InvertColorsIcon },
-      {
-        title: "Pressure",
-        value: `${main.pressure} hPa`,
-        Icon: CompressIcon,
-      },
-      {
-        title: "Visibility",
-        value: `${visibility / 1000} km`,
-        Icon: VisibilityIcon,
-      },
-      {
-        title: "Feels Like",
-        value: `${main.feels_like}°C`,
-        Icon: DeviceThermostatIcon,
-      },
-    ];
-    
+  const highlights = [
+    { title: "Humidity", value: `${main.humidity}%`, Icon: InvertColorsIcon },
+    {
+      title: "Pressure",
+      value: `${main.pressure} hPa`,
+      Icon: CompressIcon,
+    },
+    {
+      title: "Visibility",
+      value: `${visibility / 1000} km`,
+      Icon: VisibilityIcon,
+    },
+    {
+      title: "Feels Like",
+      value: `${main.feels_like}°C`,
+      Icon: DeviceThermostatIcon,
+    },
+  ];
 
   return (
     <div
@@ -215,41 +214,3 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
 };
 
 export default TodayHighlights;
-
-Highlightbox.jsx:
-import React from "react";
-
-
-// Define the props type for the HighlightBox component
-
-
-const HighlightBox = ({ title, value, Icon }) => {
-  return (
-    <div
-      style={{
-        backgroundColor: "#374151",
-        color: "white",
-        padding: "1rem",
-        borderRadius: "0.5rem",
-        width: "180px",
-        height: "80px",
-      }}
-    >
-      <div>
-        <div style={{ fontSize: "18px" }}>{title}</div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Icon style={{ fontSize: "30px" }} />
-          <p style={{ fontSize: "30px" }}>{value}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default HighlightBox; 
