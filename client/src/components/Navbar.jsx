@@ -19,12 +19,15 @@ const Navbar = ({ onSearch }) => {
 
       if (data.cod !== 200) {
         setErrorMessage("⚠️ City not found. Please enter a valid city.");
+        setTimeout(() => setErrorMessage(""), 1000);
       } else {
-        setErrorMessage(""); // Clear error
-        onSearch(data); // Pass the data to parent
+        setErrorMessage("");
+        onSearch(searchCity); // ✅ Pass just the string name
       }
+      
     } catch (err) {
       setErrorMessage("❌ Failed to fetch data. Please try again.");
+      setTimeout(() => setErrorMessage(""), 1000); // Clear error after 1 second
     }
   };
 
@@ -81,7 +84,16 @@ const Navbar = ({ onSearch }) => {
           </Button>
         </div>
         {errorMessage && (
-          <span style={{ color: "red", fontSize: "14px" }}>{errorMessage}</span>
+          <span
+            style={{
+              color: "red",
+              fontSize: "14px",
+              transition: "opacity 0.5s ease-in-out",
+              opacity: errorMessage ? 1 : 0,
+            }}
+          >
+            {errorMessage}
+          </span>
         )}
       </div>
 

@@ -34,24 +34,36 @@ function Home() {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
     )
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.cod !== 200) {
+          // Handle error gracefully
+          console.error("City not found or API error:", data.message);
+          setWeatherData(null);
+          setAirQualityData(null);
+          setfiveDayForecast(null);
+          return; // ❌ Exit early to prevent further errors
+        }
+  
+        // ✅ Proceed only if data is valid
         setWeatherData(data);
-        console.log(JSON.stringify(data));
         fetchAirQualityData(data.coord.lat, data.coord.lon);
         axios
           .get(
             `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
           )
-          .then(response => {
+          .then((response) => {
             setfiveDayForecast(response.data);
           })
-          .catch(error =>
+          .catch((error) =>
             console.error("Error fetching the 5-day forecast data:", error)
           );
       })
-      .catch(error => console.error("Error fetching the weather data:", error));
+      .catch((error) =>
+        console.error("Error fetching the weather data:", error)
+      );
   };
+  
 
   const handleSearch = (searchedCity) => {
     setCity(searchedCity);
