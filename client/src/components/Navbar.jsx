@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@mui/material/InputAdornment";
-import FilterDramaTwoToneIcon from '@mui/icons-material/FilterDramaTwoTone';
-import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 
 const Navbar = ({ onSearch }) => {
   const [searchCity, setSearchCity] = useState("");
@@ -18,64 +15,75 @@ const Navbar = ({ onSearch }) => {
   return (
     <nav
       style={{
-        justifyContent: "space-between",
         display: "flex",
         alignItems: "center",
+        justifyContent: "space-between",
         marginTop: "10px",
-        padding: "10px",
-        paddingLeft: '30px',
-        paddingRight: '30px'
+        padding: "10px 30px",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
-        <FilterDramaTwoToneIcon />
-        <p style={{ fontWeight: "bold", fontSize: "20px" }}>Weather</p>
-      </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+      {/* WeatherRadar logo and text */}
+      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+  <img
+    src="/weather-news.png"
+    alt="WeatherRadar Logo"
+    style={{ height: "70px", verticalAlign: "middle" }}
+  />
+  <p
+    style={{
+      fontWeight: "bold",
+      fontSize: "24px",
+      margin: 0,
+      lineHeight: 1,
+    }}
+  >
+    WeatherRadar
+  </p>
+</div>
+
+
+      {/* Search input and button */}
+      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
         <TextField
-          variant="outlined"
-          placeholder="Search city 'London'"
-          size="small"
-          value={searchCity}
-          onChange={(e) => setSearchCity(e.target.value)}
           style={{
             backgroundColor: "white",
             borderRadius: "2rem",
-            width: "22rem",
+            width: "28rem",
           }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
+          placeholder="Search city"
+          variant="outlined"
+          value={searchCity}
+          onChange={(e) => setSearchCity(e.target.value)}
         />
         <Button
           variant="contained"
           onClick={handleSearchClick}
-          style={{ borderRadius: "6px" ,backgroundColor: '#4B5550'}}
+          style={{ borderRadius: "6px", backgroundColor: "#4B5550" }}
         >
           Search
         </Button>
       </div>
-      <div style={{ marginTop: "1rem",
-                  fontSize: "16px",
-                  fontWeight: "700",
-                  backgroundColor: '#4B5550',
-                  height: "35px",
-                  width: "150px",
-                  color:'white',
-                  gap:'2px',
-                  borderRadius: "6px",
-                  alignItems: "center",
-                  display: "flex",
-                  justifyContent: "center",}}>
-        <GpsFixedIcon />
-        <p style={{
-                  fontSize:
-                  '14px'
-                }}>Current Location</p>
+
+      {/* Current Location Button */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "20px",
+          fontWeight: "700",
+          backgroundColor: "#4B5550",
+          height: "45px",
+          width: "180px",
+          color: "white",
+          gap: "6px",
+          borderRadius: "6px",
+        }}
+      >
+        <GpsFixedIcon style={{ fontSize: "24px", verticalAlign: "middle" }} />
+        <p style={{ fontSize: "16px", margin: 0, lineHeight: 1 }}>
+          Current Location
+        </p>
       </div>
     </nav>
   );
