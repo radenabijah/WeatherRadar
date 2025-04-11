@@ -4,11 +4,13 @@ import Button from "@mui/material/Button";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ onSearch }) => {
   const [searchCity, setSearchCity] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar toggle
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate(); // ✅ hook for programmatic navigation
 
   const handleSearchClick = async () => {
     if (!searchCity.trim()) return;
@@ -74,6 +76,11 @@ const Navbar = ({ onSearch }) => {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const handleLogout = () => {
+    localStorage.clear(); // Clear token or user info if needed
+    navigate("/login");   // Redirect to login page
+  };
+
   return (
     <>
       <nav
@@ -86,7 +93,6 @@ const Navbar = ({ onSearch }) => {
           flexWrap: "wrap",
         }}
       >
-        {/* WeatherRadar logo and text */}
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <img
             src="/weather-news.png"
@@ -105,7 +111,6 @@ const Navbar = ({ onSearch }) => {
           </p>
         </div>
 
-        {/* Search input and error */}
         <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <TextField
@@ -141,7 +146,6 @@ const Navbar = ({ onSearch }) => {
           )}
         </div>
 
-        {/* Current Location Button */}
         <Button
           variant="contained"
           onClick={handleCurrentLocationClick}
@@ -162,7 +166,6 @@ const Navbar = ({ onSearch }) => {
           Current Location
         </Button>
 
-        {/* Profile Icon */}
         <AccountCircleIcon
           onClick={toggleSidebar}
           style={{
@@ -174,49 +177,44 @@ const Navbar = ({ onSearch }) => {
       </nav>
 
       {/* Sidebar */}
-<div
-  style={{
-    position: "fixed",
-    top: 0,
-    right: sidebarOpen ? 0 : "-300px",
-    height: "100vh",
-    width: "300px",
-    backgroundColor: "rgba(255, 255, 255, 0.85)", // Transparent background
-    backdropFilter: "blur(10px)", // Optional: adds blur effect behind sidebar
-    boxShadow: "-2px 0 8px rgba(0, 0, 0, 0.1)",
-    transition: "right 0.3s ease-in-out",
-    padding: "20px",
-    zIndex: 999,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-  }}
->
-  <div>
-    <div style={{ display: "flex", justifyContent: "flex-end" }}>
-      <CloseIcon
-        onClick={toggleSidebar}
-        style={{ cursor: "pointer", fontSize: "28px" }}
-      />
-    </div>
-    <h3 style={{ marginTop: "20px" }}>Profile</h3>
-    <p style={{ marginTop: "10px" }}>Username: johndoe</p>
-    <p>Email: johndoe@example.com</p>
-  </div>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          right: sidebarOpen ? 0 : "-300px",
+          height: "100vh",
+          width: "300px",
+          backgroundColor: "rgba(135, 206, 235, 0.7)", // transparent skyblue
+          backdropFilter: "blur(10px)",
+          boxShadow: "-2px 0 8px rgba(0, 0, 0, 0.1)",
+          transition: "right 0.3s ease-in-out",
+          padding: "20px",
+          zIndex: 999,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <div>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <CloseIcon
+              onClick={toggleSidebar}
+              style={{ cursor: "pointer", fontSize: "28px" }}
+            />
+          </div>
+          <h3 style={{ marginTop: "20px" }}>Profile</h3>
+          <p style={{ marginTop: "10px" }}>Username: johndoe</p>
+          <p>Email: johndoe@example.com</p>
+        </div>
 
-  {/* Logout Button at Bottom */}
-  <Button
-    variant="contained"
-    color="error"
-    onClick={() => {
-      localStorage.clear(); // or remove specific auth token
-      window.location.href = "/login"; // Redirect to login
-    }}
-  >
-    Logout
-  </Button>
-</div>
-
+        <Button
+          variant="contained"
+          color="error"
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
+      </div>
     </>
   );
 };
