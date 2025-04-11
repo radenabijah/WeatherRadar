@@ -56,6 +56,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
         width: "900px",
         borderRadius: "0.5rem",
         padding: "30px",
+        marginLeft: "-20px"
       }}
     >
       <div style={{ fontSize: "30px" }}>Today's Highlights</div>
