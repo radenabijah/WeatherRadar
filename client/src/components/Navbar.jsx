@@ -17,8 +17,9 @@ const Navbar = ({ onSearch }) => {
 
     try {
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=f7b40973400151ea978b452ce85efaea`
+        `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=${import.meta.env.VITE_OPENWEATHERMAP_API_KEY}`
       );
+    
       const data = await res.json();
 
       if (data.cod !== 200) {

@@ -11,6 +11,17 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
   const { main, wind, visibility, sys } = weatherData;
   const airQualityIndex = airQualityData?.main?.aqi;
   const { co, no, no2, o3 } = airQualityData?.components || {};
+  const getAQIColor = (aqi) => {
+    switch (aqi) {
+      case 1: return "green";
+      case 2: return "yellow";
+      case 3: return "orange";
+      case 4: return "red";
+      case 5: return "purple";
+      default: return "gray";
+    }
+  };
+  
 
   const renderAirQualityDescription = (aqi) => {
     switch (aqi) {
@@ -56,7 +67,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
         width: "830px",
         borderRadius: "0.5rem",
         padding: "30px",
-        marginLeft: "-50px"
+        marginLeft: "-50px",
       }}
     >
       <div style={{ fontSize: "30px" }}>Today's Highlights</div>
@@ -90,7 +101,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
                   marginTop: "1rem",
                   fontSize: "16px",
                   fontWeight: "700",
-                  backgroundColor: "green",
+                  backgroundColor: getAQIColor(airQualityIndex),
                   height: "20px",
                   width: "45px",
                   borderRadius: "6px",
@@ -156,7 +167,10 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
               <div>
                 <WbSunnyIcon style={{ fontSize: "40px", marginLeft: "30px" }} />
                 <p style={{ fontSize: "25px", marginLeft: "20px" }}>
-                  {new Date(sys.sunrise * 1000).toLocaleTimeString()}
+                  {new Date(sys.sunrise * 1000).toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
                 </p>
               </div>
               <div>
@@ -164,7 +178,10 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
                   style={{ fontSize: "40px", marginRight: "35px" }}
                 />
                 <p style={{ fontSize: "25px", marginRight: "50px" }}>
-                  {new Date(sys.sunset * 1000).toLocaleTimeString()}
+                  {new Date(sys.sunset * 1000).toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
                 </p>
               </div>
             </div>

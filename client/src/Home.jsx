@@ -30,6 +30,10 @@ function Home() {
   };
 
   const fetchWeatherData = (city) => {
+    console.log("weatherData:", weatherData);
+console.log("airQualityData:", airQualityData);
+console.log("fiveDayForecast:", fiveDayForecast);
+
     const API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`

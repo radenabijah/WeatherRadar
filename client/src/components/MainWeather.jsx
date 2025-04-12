@@ -21,14 +21,17 @@ const MainWeather = ({ weatherData }) => {
     : "Date not available";
 
     const renderTemperatureIcon = () => {
+      const iconStyle = { marginLeft: '10px', fontSize: '3rem' };
+    
       if (temperatureCelsius > 23) {
-        return <WbSunnyIcon style={{ marginLeft: '10px', fontSize: '3rem', color: 'orange' }} />;
+        return <WbSunnyIcon style={{ ...iconStyle, color: 'orange' }} />;
       } else if (temperatureCelsius < 10) {
-        return <AcUnitIcon style={{ marginLeft: '10px', fontSize: '3rem', color: 'blue' }} />;
+        return <AcUnitIcon style={{ ...iconStyle, color: 'blue' }} />;
       } else {
-        return <CloudIcon style={{ marginLeft: '10px', fontSize: '3rem', color: 'gray' }} />;
+        return <CloudIcon style={{ ...iconStyle, color: 'gray' }} />;
       }
     };
+    
 
     return (
       <div style={{ backgroundColor: '#4B5563', color: 'white', borderRadius: '0.5rem',width:'300px',padding:'30px' }}>
