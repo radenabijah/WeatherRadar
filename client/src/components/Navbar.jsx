@@ -179,7 +179,7 @@ const Navbar = ({ onSearch }) => {
         <AccountCircleIcon
           onClick={toggleSidebar}
           style={{
-            fontSize: "60px",
+            fontSize: "45px",
             marginLeft: "10px",
             cursor: "pointer",
           }}
