@@ -19,7 +19,7 @@ const ThreeHourForecast = ({ forecastData }) => {
         color: "white",
         borderRadius: "0.5rem",
         padding: "15px",
-        width: "100%",
+        width: "830px",
       }}
     >
       {/* Title */}
