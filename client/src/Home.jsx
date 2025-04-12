@@ -99,6 +99,7 @@ function Home() {
               weatherData={weatherData}
               airQualityData={airQualityData}
             />
+            <ThreeHourForecast forecastData={fiveDayForecast} /> {/* Moved below */}
           </div>
         </div>
       )}
