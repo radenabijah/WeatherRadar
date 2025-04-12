@@ -17,9 +17,11 @@ const Navbar = ({ onSearch }) => {
 
     try {
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=${import.meta.env.VITE_OPENWEATHERMAP_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=${
+          import.meta.env.VITE_OPENWEATHERMAP_API_KEY
+        }`
       );
-    
+
       const data = await res.json();
 
       if (data.cod !== 200) {
@@ -79,10 +81,15 @@ const Navbar = ({ onSearch }) => {
 
   const handleLogout = () => {
     localStorage.clear(); // Clear token or user info if needed
-    navigate("/login");   // Redirect to login page
+    navigate("/login"); // Redirect to login page
   };
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(storedUser);
+  }, [sidebarOpen]);
 
   return (
     <>
@@ -207,14 +214,10 @@ const Navbar = ({ onSearch }) => {
           </div>
           <h3 style={{ marginTop: "20px" }}>Profile</h3>
           <p style={{ marginTop: "10px" }}>Name: {user?.name || "Guest"}</p>
-<p>Email: {user?.email || "Not logged in"}</p>
+          <p>Email: {user?.email || "Not logged in"}</p>
         </div>
 
-        <Button
-          variant="contained"
-          color="error"
-          onClick={handleLogout}
-        >
+        <Button variant="contained" color="error" onClick={handleLogout}>
           Logout
         </Button>
       </div>
