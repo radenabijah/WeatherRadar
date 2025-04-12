@@ -6,7 +6,8 @@ import CloudIcon from '@mui/icons-material/Cloud'; // Moderate weather icon
 
 const MainWeather = ({ weatherData }) => {
 
-  const temperatureCelsius = weatherData?.main?.temp || "N/A";
+  const temperatureCelsius = weatherData?.main?.temp
+  ? Math.round(weatherData.main.temp) : "N/A";
   const weatherDescription = weatherData?.weather?.[0]?.description || "N/A";
   const cityName = weatherData?.name || "City not available";
   const countryName = weatherData?.sys?.country || "Country not available";
