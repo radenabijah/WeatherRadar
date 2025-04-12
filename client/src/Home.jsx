@@ -3,14 +3,14 @@ import Navbar from "./components/Navbar";
 import MainWeather from "./components/MainWeather";
 import TodayHighlights from "./components/TodayHighlights";
 import FiveDayForecast from "./components/Fiveday"; // Corrected import
-import ThreeHourForecast from "./components/ThreeHourForecast";
+import ThreeHourForecast from "./components/ThreeHourForecast"; // Correct import
 import axios from "axios";
 
 function Home() {
   const [weatherData, setWeatherData] = useState(null);
   const [city, setCity] = useState("Cebu");
   const [airQualityData, setAirQualityData] = useState(null);
-  const [fiveDayForecast, setfiveDayForecast] = useState(null);
+  const [fiveDayForecast, setFiveDayForecast] = useState(null);
 
   useEffect(() => {
     fetchWeatherData(city);
@@ -31,10 +31,6 @@ function Home() {
   };
 
   const fetchWeatherData = (city) => {
-    console.log("weatherData:", weatherData);
-    console.log("airQualityData:", airQualityData);
-    console.log("fiveDayForecast:", fiveDayForecast);
-
     const API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
@@ -42,23 +38,22 @@ function Home() {
       .then((response) => response.json())
       .then((data) => {
         if (data.cod !== 200) {
-          // Handle error gracefully
           console.error("City not found or API error:", data.message);
           setWeatherData(null);
           setAirQualityData(null);
-          setfiveDayForecast(null);
-          return; // ❌ Exit early to prevent further errors
+          setFiveDayForecast(null);
+          return;
         }
 
-        // ✅ Proceed only if data is valid
         setWeatherData(data);
         fetchAirQualityData(data.coord.lat, data.coord.lon);
+
         axios
           .get(
             `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
           )
           .then((response) => {
-            setfiveDayForecast(response.data);
+            setFiveDayForecast(response.data);
           })
           .catch((error) =>
             console.error("Error fetching the 5-day forecast data:", error)
@@ -76,7 +71,8 @@ function Home() {
   return (
     <div>
       <Navbar onSearch={handleSearch} />
-      {weatherData && airQualityData && (
+      {/* Ensure that the data exists before rendering components */}
+      {weatherData && airQualityData && fiveDayForecast ? (
         <div style={{ display: "flex", padding: "30px", gap: "20px" }}>
           <div style={{ flex: "1", marginRight: "10px" }}>
             <MainWeather weatherData={weatherData} />
@@ -99,9 +95,11 @@ function Home() {
               weatherData={weatherData}
               airQualityData={airQualityData}
             />
-            <ThreeHourForecast forecastData={fiveDayForecast} /> {/* Moved below */}
+            <ThreeHourForecast forecastData={fiveDayForecast} /> {/* Below */}
           </div>
         </div>
+      ) : (
+        <div>Loading...</div> // Show a loading message or spinner while data is being fetched
       )}
     </div>
   );
