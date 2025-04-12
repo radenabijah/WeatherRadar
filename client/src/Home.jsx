@@ -81,14 +81,12 @@ function Home() {
           <div style={{ flex: "1", marginRight: "10px" }}>
             <MainWeather weatherData={weatherData} />
 
-            {/* 3-Hour Forecast Section */}
             {fiveDayForecast && (
               <div style={{ marginTop: "20px" }}>
-                <ThreeHourForecast forecastData={fiveDayForecast} />
+                <FiveDayForecast forecastData={fiveDayForecast} />
               </div>
             )}
           </div>
-
           <div
             style={{
               display: "flex",
