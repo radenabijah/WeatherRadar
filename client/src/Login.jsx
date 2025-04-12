@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./styles/LoginSignup.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -20,38 +19,38 @@ function Login() {
     }
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError(""); // Clear previous errors
 
-    axios
-      .post(`${import.meta.env.VITE_API_BASE_URL}/login`, { email, password })
-      .then((result) => {
-        console.log(result);
-
-        if (result.data.message === "Login successful") {
-          if (rememberMe) {
-            localStorage.setItem("rememberedEmail", email);
-          } else {
-            localStorage.removeItem("rememberedEmail");
-          }
-          navigate("/home");
-        } else {
-          setError(result.data.error || "Invalid credentials"); // Set error message
-        }
-      })
-      .catch((err) => {
-        // Check the status code and handle specific errors
-        if (err.response) {
-          if (err.response.status === 400) {
-            setError("⚠️ Invalid credentials!");
-          } else {
-            setError("⚠️ Server error. Please try again later.");
-          }
-        } else {
-          setError("⚠️ Network error. Please check your connection.");
-        }
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
+
+      const data = await res.json();
+
+      if (data.message === "Login successful") {
+        if (rememberMe) {
+          localStorage.setItem("rememberedEmail", email);
+        } else {
+          localStorage.removeItem("rememberedEmail");
+        }
+
+        // Optional: store user data if returned
+        if (data.user) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+        }
+
+        navigate("/home");
+      } else {
+        setError(data.error || "⚠️ Invalid credentials!");
+      }
+    } catch (err) {
+      setError("⚠️ Network or server error. Please try again later.");
+    }
   };
 
   // Auto-hide error after 3 seconds
@@ -74,11 +73,12 @@ function Login() {
 
   return (
     <div>
-
       <div className="auth-container">
         {/* Display error message above the login heading */}
         {error && (
-          <div className={`error-message ${error === "HIDE" ? "fade-out" : ""}`}>
+          <div
+            className={`error-message ${error === "HIDE" ? "fade-out" : ""}`}
+          >
             {error !== "HIDE" ? error : ""}
           </div>
         )}

@@ -82,6 +82,8 @@ const Navbar = ({ onSearch }) => {
     navigate("/login");   // Redirect to login page
   };
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <>
       <nav
@@ -204,8 +206,8 @@ const Navbar = ({ onSearch }) => {
             />
           </div>
           <h3 style={{ marginTop: "20px" }}>Profile</h3>
-          <p style={{ marginTop: "10px" }}>Username: johndoe</p>
-          <p>Email: johndoe@example.com</p>
+          <p style={{ marginTop: "10px" }}>Name: {user?.name || "Guest"}</p>
+<p>Email: {user?.email || "Not logged in"}</p>
         </div>
 
         <Button
