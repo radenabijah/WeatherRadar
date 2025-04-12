@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import MainWeather from "./components/MainWeather";
 import TodayHighlights from "./components/TodayHighlights";
 import FiveDayForecast from "./components/Fiveday"; // Corrected import
+import ThreeHourForecast from "./components/ThreeHourForecast";
 import axios from "axios";
 
 function Home() {
@@ -31,8 +32,8 @@ function Home() {
 
   const fetchWeatherData = (city) => {
     console.log("weatherData:", weatherData);
-console.log("airQualityData:", airQualityData);
-console.log("fiveDayForecast:", fiveDayForecast);
+    console.log("airQualityData:", airQualityData);
+    console.log("fiveDayForecast:", fiveDayForecast);
 
     const API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
     fetch(
@@ -48,7 +49,7 @@ console.log("fiveDayForecast:", fiveDayForecast);
           setfiveDayForecast(null);
           return; // ❌ Exit early to prevent further errors
         }
-  
+
         // ✅ Proceed only if data is valid
         setWeatherData(data);
         fetchAirQualityData(data.coord.lat, data.coord.lon);
@@ -67,7 +68,6 @@ console.log("fiveDayForecast:", fiveDayForecast);
         console.error("Error fetching the weather data:", error)
       );
   };
-  
 
   const handleSearch = (searchedCity) => {
     setCity(searchedCity);
@@ -80,13 +80,15 @@ console.log("fiveDayForecast:", fiveDayForecast);
         <div style={{ display: "flex", padding: "30px", gap: "20px" }}>
           <div style={{ flex: "1", marginRight: "10px" }}>
             <MainWeather weatherData={weatherData} />
-            
+
+            {/* 3-Hour Forecast Section */}
             {fiveDayForecast && (
-  <div style={{ marginTop: "20px" }}>
-    <FiveDayForecast forecastData={fiveDayForecast} />
-  </div>
-)}
+              <div style={{ marginTop: "20px" }}>
+                <ThreeHourForecast forecastData={fiveDayForecast} />
+              </div>
+            )}
           </div>
+
           <div
             style={{
               display: "flex",
@@ -95,7 +97,10 @@ console.log("fiveDayForecast:", fiveDayForecast);
               gap: "20px",
             }}
           >
-            <TodayHighlights weatherData={weatherData} airQualityData={airQualityData} />
+            <TodayHighlights
+              weatherData={weatherData}
+              airQualityData={airQualityData}
+            />
           </div>
         </div>
       )}
