@@ -1,38 +1,34 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import the icons
 
-function ResetPassword() {
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // To toggle password visibility
+function ForgotPassword() {
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { id, token } = useParams();
 
-  axios.defaults.withCredentials = true;
+  axios.post(`${import.meta.env.VITE_API_BASE_URL}/forgot-password`, 
+    { email }, 
+    { withCredentials: true }
+  )
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Password length validation
-    if (password.length < 6) {
-      setMessage("Password must be at least 6 characters long.");
-      return;
-    }
-
     axios
-      .post(`${import.meta.env.VITE_API_BASE_URL}/reset-password/${id}/${token}`, { password })
+      .post(`${import.meta.env.VITE_API_BASE_URL}/forgot-password`, { email })
       .then((res) => {
         if (res.data.Status === "Success") {
-          setMessage("Password updated successfully!");
-          setTimeout(() => navigate("/login"), 1500);
+          setMessage("✅ Reset link sent! Check your email.");
+          setTimeout(() => navigate("/login"), 2000);
         } else {
-          setMessage(res.data.Status || "Password reset failed.");
+          setMessage(`⚠️ ${res.data.Status}`);
         }
       })
       .catch((err) => {
-        setMessage("Error resetting password. Please try again.");
+        console.error(err);
+        setMessage("❌ Error sending reset link. Please try again.");
       });
   };
 
@@ -40,44 +36,33 @@ function ResetPassword() {
     <div className="auth-container">
       <div className="auth-box">
         <h2 style={{ color: "black", fontWeight: "normal" }}>
-          Reset Password
+          Forgot Password
         </h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3 password-container">
-            <label htmlFor="password">
-              <strong>New Password</strong>
+          <div className="mb-3">
+            <label htmlFor="email">
+              <strong>Email address</strong>
             </label>
-            <div className="password-wrapper">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                placeholder="Enter password"
-                autoComplete="off"
-                name="password"
-                className="form-control rounded-0"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              {password.length > 0 && (
-                <span
-                  className="password-toggle"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              )}
-            </div>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              autoComplete="off"
+              name="email"
+              className="form-control rounded-0"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-
           <button type="submit" className="btn btn-primary w-100 rounded-0">
-            Update
+            Submit
           </button>
         </form>
-
         {message && <p className="alert-message mt-3">{message}</p>}
       </div>
     </div>
   );
 }
 
-export default ResetPassword;
+export default ForgotPassword;

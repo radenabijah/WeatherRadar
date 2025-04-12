@@ -7,7 +7,11 @@ function ForgotPassword() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  axios.defaults.withCredentials = true;
+  axios.post(`${import.meta.env.VITE_API_BASE_URL}/forgot-password`, 
+    { email }, 
+    { withCredentials: true }
+  )
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
