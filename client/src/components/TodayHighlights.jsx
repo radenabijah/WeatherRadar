@@ -13,15 +13,20 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
   const { co, no, no2, o3 } = airQualityData?.components || {};
   const getAQIColor = (aqi) => {
     switch (aqi) {
-      case 1: return "green";
-      case 2: return "yellow";
-      case 3: return "orange";
-      case 4: return "red";
-      case 5: return "purple";
-      default: return "gray";
+      case 1:
+        return "green";
+      case 2:
+        return "yellow";
+      case 3:
+        return "orange";
+      case 4:
+        return "red";
+      case 5:
+        return "purple";
+      default:
+        return "gray";
     }
   };
-  
 
   const renderAirQualityDescription = (aqi) => {
     switch (aqi) {
@@ -102,8 +107,11 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
                   fontSize: "16px",
                   fontWeight: "700",
                   backgroundColor: getAQIColor(airQualityIndex),
+                  color: "black", // Make AQI description text black
                   height: "20px",
-                  width: "45px",
+                  width: "auto",
+                  minWidth: "45px",
+                  padding: "0 8px",
                   borderRadius: "6px",
                   alignItems: "center",
                   display: "flex",
