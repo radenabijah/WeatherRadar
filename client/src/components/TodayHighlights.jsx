@@ -1,220 +1,59 @@
-import AirIcon from "@mui/icons-material/Air";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import NightsStayIcon from "@mui/icons-material/NightsStay";
-import InvertColorsIcon from "@mui/icons-material/InvertColors";
-import HighlightBox from "./Highlightbox";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import CompressIcon from "@mui/icons-material/Compress";
-import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import WbSunnyIcon from '@mui/icons-material/WbSunny'; // Hot weather icon
+import AcUnitIcon from '@mui/icons-material/AcUnit'; // Cold weather icon
+import CloudIcon from '@mui/icons-material/Cloud'; // Moderate weather icon
 
-const TodayHighlights = ({ weatherData, airQualityData }) => {
-  const { main, wind, visibility, sys } = weatherData;
-  const airQualityIndex = airQualityData?.main?.aqi;
-  const { co, no, no2, o3 } = airQualityData?.components || {};
-  const getAQIColor = (aqi) => {
-    switch (aqi) {
-      case 1:
-        return "green";
-      case 2:
-        return "yellow";
-      case 3:
-        return "orange";
-      case 4:
-        return "red";
-      case 5:
-        return "purple";
-      default:
-        return "gray";
-    }
-  };
+const MainWeather = ({ weatherData }) => {
 
-  const renderAirQualityDescription = (aqi) => {
-    switch (aqi) {
-      case 1:
-        return "Good";
-      case 2:
-        return "Fair";
-      case 3:
-        return "Moderate";
-      case 4:
-        return "Poor";
-      case 5:
-        return "Very Poor";
-      default:
-        return "Unknown";
-    }
-  };
+  const temperatureCelsius = weatherData?.main?.temp
+  ? Math.round(weatherData.main.temp) : "N/A";
+  const weatherDescription = weatherData?.weather?.[0]?.description || "N/A";
+  const cityName = weatherData?.name || "City not available";
+  const countryName = weatherData?.sys?.country || "Country not available";
+  const timestamp = weatherData?.dt || null;
 
-  const highlights = [
-    { title: "Humidity", value: `${main.humidity}%`, Icon: InvertColorsIcon },
-    {
-      title: "Pressure",
-      value: `${main.pressure} hPa`,
-      Icon: CompressIcon,
-    },
-    {
-      title: "Visibility",
-      value: `${visibility / 1000} km`,
-      Icon: VisibilityIcon,
-    },
-    {
-      title: "Feels Like",
-      value: `${main.feels_like}°C`,
-      Icon: DeviceThermostatIcon,
-    },
-  ];
+  const currentDate = timestamp
+    ? new Date(timestamp * 1000).toLocaleDateString('en-US', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'short',
+      })
+    : "Date not available";
 
-  return (
-    <div
-      style={{
-        backgroundColor: "#4B5563",
-        color: "white",
-        width: "830px",
-        borderRadius: "0.5rem",
-        padding: "30px",
-        marginLeft: "-50px",
-      }}
-    >
-      <div style={{ fontSize: "30px" }}>Today's Highlights</div>
-      <div
-        style={{
-          display: "flex",
-          gap: "18px",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "#374151",
-            color: "white",
-            padding: "1rem",
-            borderRadius: "0.5rem",
-            marginTop: "11px",
-            width: "390px",
-          }}
-        >
-          <div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                fontSize: "22px",
-              }}
-            >
-              <p>Air Quality Index</p>
-              <div
-                style={{
-                  marginTop: "1rem",
-                  fontSize: "16px",
-                  fontWeight: "700",
-                  backgroundColor: getAQIColor(airQualityIndex),
-                  color: "black", // Make AQI description text black
-                  height: "20px",
-                  width: "auto",
-                  minWidth: "45px",
-                  padding: "0 8px",
-                  borderRadius: "6px",
-                  alignItems: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                {renderAirQualityDescription(airQualityIndex)}
-              </div>
-            </div>
-            <div>
-              <AirIcon style={{ fontSize: "35px" }} />
-              <div
-                style={{
-                  marginTop: "1rem",
-                  display: "grid",
-                  gridTemplateColumns: "repeat(4, 1fr)",
-                  gap: "10px",
-                }}
-              >
-                <div>
-                  <p style={{ fontWeight: "bold" }}>CO</p>
-                  <p>{co} µg/m³</p>
-                </div>
-                <div>
-                  <p style={{ fontWeight: "bold" }}>NO</p>
-                  <p>{no} µg/m³</p>
-                </div>
-                <div>
-                  <p style={{ fontWeight: "bold" }}>NO₂</p>
-                  <p>{no2} µg/m³</p>
-                </div>
-                <div>
-                  <p style={{ fontWeight: "bold" }}>O₃</p>
-                  <p>{o3} µg/m³</p>
-                </div>
-              </div>
-            </div>
-          </div>
+    const renderTemperatureIcon = () => {
+      const iconStyle = { marginLeft: '10px', fontSize: '3rem' };
+    
+      if (temperatureCelsius > 23) {
+        return <WbSunnyIcon style={{ ...iconStyle, color: 'orange' }} />;
+      } else if (temperatureCelsius < 10) {
+        return <AcUnitIcon style={{ ...iconStyle, color: 'blue' }} />;
+      } else {
+        return <CloudIcon style={{ ...iconStyle, color: 'gray' }} />;
+      }
+    };
+    
+
+    return (
+      <div style={{ backgroundColor: '#4B5563', color: 'white', borderRadius: '0.5rem',width:'300px',padding:'30px' }}>
+        <div style={{fontSize:'30px'}}>Now</div>
+      <div style={{display: 'flex', alignItems: 'center', fontSize: '35px', fontWeight: 'bold'  }}>
+        {temperatureCelsius}°C
+        {renderTemperatureIcon()}
+        
         </div>
-
-        <div
-          style={{
-            backgroundColor: "#374151",
-            color: "white",
-            padding: "1rem",
-            borderRadius: "0.5rem",
-            marginTop: "11px",
-            width: "370px",
-          }}
-        >
-          <div style={{ fontSize: "22px" }}>
-            <p>Sunrise And Sunset</p>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                padding: "10px",
-                gap: "35px",
-              }}
-            >
-              <div>
-                <WbSunnyIcon style={{ fontSize: "40px", marginLeft: "30px" }} />
-                <p style={{ fontSize: "25px", marginLeft: "20px" }}>
-                  {new Date(sys.sunrise * 1000).toLocaleTimeString("en-US", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </p>
-              </div>
-              <div>
-                <NightsStayIcon
-                  style={{ fontSize: "40px", marginRight: "35px" }}
-                />
-                <p style={{ fontSize: "25px", marginRight: "50px" }}>
-                  {new Date(sys.sunset * 1000).toLocaleTimeString("en-US", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div style={{ fontSize: '15px', marginTop: '8px',fontWeight:'50' }}>  {weatherDescription}</div>
+      <div style={{ marginTop: '1rem' }}>
+      <div style={{display:'flex',alignItems:'center'}}>
+       <CalendarMonthIcon/> 
+        {currentDate}</div>
+      <div style={{marginTop:'4px',display:'flex',alignItems:'center'}}>
+      <LocationOnIcon/>
+        {cityName}, {countryName}</div>
       </div>
-
-      <div
-        style={{
-          display: "flex",
-          gap: "4px",
-          marginTop: "10px",
-        }}
-      >
-        {highlights.map((highlight, index) => (
-          <HighlightBox
-            key={index}
-            title={highlight.title}
-            value={highlight.value}
-            Icon={highlight.Icon}
-          />
-        ))}
       </div>
-    </div>
-  );
-};
-
-export default TodayHighlights;
+    );
+  };
+  
+  export default MainWeather;
+  

@@ -47,7 +47,7 @@ const ThreeHourForecast = ({ forecastData }) => {
           <div
             key={index}
             style={{
-              backgroundColor: "#6B7280",
+              backgroundColor: "#374151",
               borderRadius: "8px",
               padding: "10px",
               width: "calc(33% - 10px)",

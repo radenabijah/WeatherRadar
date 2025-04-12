@@ -58,7 +58,7 @@ const FiveDayForecast = ({ forecastData }) => {
           }}
         >
           <div style={{ flex: "1", fontSize: "18px", fontWeight: "bold" }}>
-            {Math.round(item.main.temp)}°c
+            {Math.round(item.main.temp)}°C
           </div>
           <div style={{ flex: "1", fontSize: "16px", fontWeight: "bold" }}>
             {formatDate(item.dt_txt)}

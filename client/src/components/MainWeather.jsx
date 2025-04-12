@@ -38,7 +38,7 @@ const MainWeather = ({ weatherData }) => {
       <div style={{ backgroundColor: '#4B5563', color: 'white', borderRadius: '0.5rem',width:'300px',padding:'30px' }}>
         <div style={{fontSize:'30px'}}>Now</div>
       <div style={{display: 'flex', alignItems: 'center', fontSize: '35px', fontWeight: 'bold'  }}>
-        {temperatureCelsius}°c
+        {temperatureCelsius}°C
         {renderTemperatureIcon()}
         
         </div>
