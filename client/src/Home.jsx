@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import MainWeather from "./components/MainWeather";
 import TodayHighlights from "./components/TodayHighlights";
-import FiveDayForecast from "./components/Fiveday"; // Corrected import
-import ThreeHourForecast from "./components/ThreeHourForecast"; // Correct import
+import FiveDayForecast from "./components/Fiveday";
+import ThreeHourForecast from "./components/ThreeHourForecast";
 import axios from "axios";
 
 function Home() {
