@@ -8,7 +8,7 @@ import axios from "axios";
 
 function Home() {
   const [weatherData, setWeatherData] = useState(null);
-  const [city, setCity] = useState("Cebu");
+  const [city, setCity] = useState("Liloan");
   const [airQualityData, setAirQualityData] = useState(null);
   const [fiveDayForecast, setFiveDayForecast] = useState(null);
 
