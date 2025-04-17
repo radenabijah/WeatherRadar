@@ -24,8 +24,8 @@ function ResetPassword() {
       .post(`${import.meta.env.VITE_API_BASE_URL}/reset-password/${id}/${token}`, { password })
       .then((res) => {
         if (res.data.Status === "Success") {
-          setMessage("✅ Password updated successfully!");
-          setTimeout(() => navigate("/login"), 1500);
+          setMessage("✅ Password updated successfully! Please return to the previous page to continue.");
+          setTimeout(() => navigate("/login"), 10000);
         } else {
           setMessage(res.data.Status || "❌ Password reset failed.");
         }
