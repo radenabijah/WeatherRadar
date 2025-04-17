@@ -20,7 +20,8 @@ function Home() {
     const API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`,
+        { withCredentials: false }
       )
       .then((response) => {
         setAirQualityData(response.data.list[0]);
@@ -33,7 +34,8 @@ function Home() {
   const fetchWeatherData = (city) => {
     const API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`,
+      { withCredentials: false }
     )
       .then((response) => response.json())
       .then((data) => {
