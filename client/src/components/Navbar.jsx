@@ -10,7 +10,7 @@ const Navbar = ({ onSearch }) => {
   const [searchCity, setSearchCity] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navigate = useNavigate(); // ✅ hook for programmatic navigation
+  const navigate = useNavigate(); 
 
   const handleSearchClick = async () => {
     if (!searchCity.trim()) return;

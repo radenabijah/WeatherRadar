@@ -8,7 +8,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(""); // Store error message
+  const [error, setError] = useState(""); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function Login() {
           localStorage.removeItem("rememberedEmail");
         }
 
-        // Optional: store user data if returned
+        
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
         }

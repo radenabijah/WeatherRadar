@@ -1,5 +1,5 @@
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import LocationOnIcon from '@mui/icons-material/LocationOn'; // Gps icon
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'; // Calendar icon
 import WbSunnyIcon from '@mui/icons-material/WbSunny'; // Hot weather icon
 import AcUnitIcon from '@mui/icons-material/AcUnit'; // Cold weather icon
 import CloudIcon from '@mui/icons-material/Cloud'; // Moderate weather icon

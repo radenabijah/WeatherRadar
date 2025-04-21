@@ -10,7 +10,7 @@ function ResetPassword() {
   const navigate = useNavigate();
   const { id, token } = useParams();
 
-  axios.defaults.withCredentials = true; // if your backend requires cookies
+  axios.defaults.withCredentials = true; 
 
   const handleSubmit = (e) => {
     e.preventDefault();

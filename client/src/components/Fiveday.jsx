@@ -32,7 +32,7 @@ const FiveDayForecast = ({ forecastData }) => {
         padding: "15px",
       }}
     >
-      {/* Title */}
+     {/* Title */}
       <h2
         style={{
           fontSize: "18px",
@@ -49,7 +49,7 @@ const FiveDayForecast = ({ forecastData }) => {
         <div
           key={index}
           style={{
-            marginBottom: "25px", // increased space
+            marginBottom: "25px", 
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",

@@ -107,7 +107,7 @@ const TodayHighlights = ({ weatherData, airQualityData }) => {
                   fontSize: "16px",
                   fontWeight: "700",
                   backgroundColor: getAQIColor(airQualityIndex),
-                  color: "black", // Make AQI description text black
+                  color: "black", 
                   height: "20px",
                   width: "auto",
                   minWidth: "45px",
