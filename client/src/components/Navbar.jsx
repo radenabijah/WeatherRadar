@@ -37,6 +37,11 @@ const Navbar = ({ onSearch }) => {
     }
   };
 
+  const handleClearClick = () => {
+    setSearchCity(""); // Clear the search input field
+    setErrorMessage(""); // Clear the error message if any
+  };
+
   const handleCurrentLocationClick = () => {
     if (!navigator.geolocation) {
       setErrorMessage("❌ Geolocation not supported by your browser.");
@@ -146,6 +151,13 @@ const Navbar = ({ onSearch }) => {
               style={{ borderRadius: "6px", backgroundColor: "#4B5550" }}
             >
               Search
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={handleClearClick}
+              style={{ borderRadius: "6px", backgroundColor: "#D1D5DB" }}
+            >
+              Clear
             </Button>
           </form>
           {errorMessage && (
