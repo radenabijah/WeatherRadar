@@ -148,14 +148,20 @@ const Navbar = ({ onSearch }) => {
             <Button
               variant="contained"
               type="submit"
-              style={{ borderRadius: "6px", backgroundColor: "#4B5550" }}
+              style={{
+                borderRadius: "6px",
+                backgroundColor: "#4B5550",
+              }}
             >
               Search
             </Button>
             <Button
-              variant="outlined"
+              variant="contained"
               onClick={handleClearClick}
-              style={{ borderRadius: "6px", backgroundColor: "#D1D5DB" }}
+              style={{
+                borderRadius: "6px",
+                backgroundColor: "#4B5550", // Match the Search button color
+              }}
             >
               Clear
             </Button>
