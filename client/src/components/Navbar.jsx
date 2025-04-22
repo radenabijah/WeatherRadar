@@ -10,7 +10,7 @@ const Navbar = ({ onSearch }) => {
   const [searchCity, setSearchCity] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSearchClick = async () => {
     if (!searchCity.trim()) return;
@@ -122,7 +122,13 @@ const Navbar = ({ onSearch }) => {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSearchClick();
+            }}
+            style={{ display: "flex", alignItems: "center", gap: "6px" }}
+          >
             <TextField
               style={{
                 backgroundColor: "white",
@@ -136,12 +142,12 @@ const Navbar = ({ onSearch }) => {
             />
             <Button
               variant="contained"
-              onClick={handleSearchClick}
+              type="submit"
               style={{ borderRadius: "6px", backgroundColor: "#4B5550" }}
             >
               Search
             </Button>
-          </div>
+          </form>
           {errorMessage && (
             <span
               style={{
