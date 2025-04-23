@@ -36,43 +36,35 @@ const Navbar = ({ onSearch }) => {
 
   const handleSearchClick = async () => {
     if (!searchCity.trim()) return;
-
+  
     try {
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=${
-          import.meta.env.VITE_OPENWEATHERMAP_API_KEY
-        }`
+        `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=${import.meta.env.VITE_OPENWEATHERMAP_API_KEY}`
       );
-
+  
       const data = await res.json();
-
+  
       if (data.cod !== 200) {
         setErrorMessage("⚠️ City not found. Please enter a valid city.");
         setTimeout(() => setErrorMessage(""), 2000);
       } else {
         setErrorMessage("");
         onSearch(searchCity);
-
-        // Save search to MongoDB
-        const user = JSON.parse(localStorage.getItem("user"));
-        if (user && user.email) {
-          await fetch(`${import.meta.env.VITE_API_BASE_URL}/search-history`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: user.email,
-              city: searchCity,
-            }),
-          });
-        }
+  
+        // Update the search history by adding the new search (if it's not already in the history)
+        setSearchHistory((prevHistory) => {
+          if (!prevHistory.includes(searchCity)) {
+            return [searchCity, ...prevHistory];  // Add new search at the beginning
+          }
+          return prevHistory;
+        });
       }
     } catch (err) {
       setErrorMessage("❌ Failed to fetch data. Please try again.");
       setTimeout(() => setErrorMessage(""), 2000);
     }
   };
+  
 
   const handleClearClick = () => {
     setSearchCity("");
