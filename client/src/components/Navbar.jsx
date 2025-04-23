@@ -204,41 +204,45 @@ const Navbar = ({ onSearch }) => {
             </Button>
           </form>
           {searchHistory.length > 0 && (
-  <div
-    style={{
-      position: "absolute",
-      top: "100%",
-      left: 0,
-      width: "100%",
-      backgroundColor: "white",
-      border: "1px solid #ccc",
-      borderRadius: "6px",
-      marginTop: "4px",
-      zIndex: 10,
-      boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-    }}
-  >
-    {searchHistory.map((city, index) => (
-      <div
-        key={index}
-        onClick={() => {
-          setSearchCity(city);
-          onSearch(city);
-        }}
-        style={{
-          padding: "8px 16px",
-          cursor: "pointer",
-          borderBottom: index !== searchHistory.length - 1 ? "1px solid #eee" : "none",
-        }}
-        onMouseOver={(e) => (e.target.style.backgroundColor = "#f2f2f2")}
-        onMouseOut={(e) => (e.target.style.backgroundColor = "white")}
-      >
-        {city}
-      </div>
-    ))}
-  </div>
-)}
-
+            <div
+              style={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                width: "100%",
+                backgroundColor: "white",
+                border: "1px solid #ccc",
+                borderRadius: "6px",
+                marginTop: "4px",
+                zIndex: 10,
+                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+              }}
+            >
+              {searchHistory.map((city, index) => (
+                <div
+                  key={index}
+                  onClick={() => {
+                    setSearchCity(city);
+                    onSearch(city);
+                  }}
+                  style={{
+                    padding: "8px 16px",
+                    cursor: "pointer",
+                    borderBottom:
+                      index !== searchHistory.length - 1
+                        ? "1px solid #eee"
+                        : "none",
+                  }}
+                  onMouseOver={(e) =>
+                    (e.target.style.backgroundColor = "#f2f2f2")
+                  }
+                  onMouseOut={(e) => (e.target.style.backgroundColor = "white")}
+                >
+                  {city}
+                </div>
+              ))}
+            </div>
+          )}
 
           {errorMessage && (
             <span
