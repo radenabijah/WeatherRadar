@@ -14,21 +14,25 @@ const Navbar = ({ onSearch }) => {
   const [user, setUser] = useState(null);
   const [searchHistory, setSearchHistory] = useState([]);
 
-
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
-  
+
     if (storedUser && storedUser.email) {
-      fetch(`${import.meta.env.VITE_API_BASE_URL}/search-history/${storedUser.email}`)
+      fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/search-history/${
+          storedUser.email
+        }`
+      )
         .then((res) => res.json())
         .then((data) => {
           setSearchHistory(data.history.reverse()); // Show most recent first
         })
-        .catch((err) => console.error("❌ Failed to fetch search history", err));
+        .catch((err) =>
+          console.error("❌ Failed to fetch search history", err)
+        );
     }
   }, [sidebarOpen]);
-  
 
   const handleSearchClick = async () => {
     if (!searchCity.trim()) return;
@@ -210,36 +214,39 @@ const Navbar = ({ onSearch }) => {
           {searchHistory.length > 0 && (
   <div
     style={{
-      marginTop: "6px",
-      padding: "8px",
-      borderRadius: "8px",
-      backgroundColor: "#f9f9f9",
-      boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-      maxHeight: "150px",
-      overflowY: "auto",
+      position: "absolute",
+      top: "100%",
+      left: 0,
+      width: "100%",
+      backgroundColor: "white",
+      border: "1px solid #ccc",
+      borderRadius: "6px",
+      marginTop: "4px",
+      zIndex: 10,
+      boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
     }}
   >
-    <strong>Recent Searches:</strong>
-    <ul style={{ listStyle: "none", paddingLeft: 0, marginTop: "4px" }}>
-      {searchHistory.map((city, index) => (
-        <li
-          key={index}
-          style={{
-            cursor: "pointer",
-            padding: "4px 0",
-            borderBottom: "1px solid #eee",
-          }}
-          onClick={() => {
-            setSearchCity(city);
-            onSearch(city);
-          }}
-        >
-          {city}
-        </li>
-      ))}
-    </ul>
+    {searchHistory.map((city, index) => (
+      <div
+        key={index}
+        onClick={() => {
+          setSearchCity(city);
+          onSearch(city);
+        }}
+        style={{
+          padding: "8px 16px",
+          cursor: "pointer",
+          borderBottom: index !== searchHistory.length - 1 ? "1px solid #eee" : "none",
+        }}
+        onMouseOver={(e) => (e.target.style.backgroundColor = "#f2f2f2")}
+        onMouseOut={(e) => (e.target.style.backgroundColor = "white")}
+      >
+        {city}
+      </div>
+    ))}
   </div>
 )}
+
 
           {errorMessage && (
             <span
