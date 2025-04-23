@@ -11,6 +11,24 @@ const Navbar = ({ onSearch }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [searchHistory, setSearchHistory] = useState([]);
+
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(storedUser);
+  
+    if (storedUser && storedUser.email) {
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/search-history/${storedUser.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setSearchHistory(data.history.reverse()); // Show most recent first
+        })
+        .catch((err) => console.error("❌ Failed to fetch search history", err));
+    }
+  }, [sidebarOpen]);
+  
 
   const handleSearchClick = async () => {
     if (!searchCity.trim()) return;
@@ -30,6 +48,21 @@ const Navbar = ({ onSearch }) => {
       } else {
         setErrorMessage("");
         onSearch(searchCity);
+
+        // Save search to MongoDB
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user && user.email) {
+          await fetch(`${import.meta.env.VITE_API_BASE_URL}/search-history`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: user.email,
+              city: searchCity,
+            }),
+          });
+        }
       }
     } catch (err) {
       setErrorMessage("❌ Failed to fetch data. Please try again.");
@@ -38,8 +71,8 @@ const Navbar = ({ onSearch }) => {
   };
 
   const handleClearClick = () => {
-    setSearchCity(""); // Clear the search input field
-    setErrorMessage(""); // Clear the error message if any
+    setSearchCity("");
+    setErrorMessage("");
   };
 
   const handleCurrentLocationClick = () => {
@@ -64,6 +97,21 @@ const Navbar = ({ onSearch }) => {
             setSearchCity(data.name);
             onSearch(data.name);
             setErrorMessage("");
+
+            // ✅ Save location search too
+            const user = JSON.parse(localStorage.getItem("user"));
+            if (user && user.email) {
+              await fetch("http://localhost:3001/search-history", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: user.email,
+                  city: data.name,
+                }),
+              });
+            }
           } else {
             setErrorMessage("⚠️ Unable to retrieve city from location.");
             setTimeout(() => setErrorMessage(""), 2000);
@@ -85,16 +133,9 @@ const Navbar = ({ onSearch }) => {
   };
 
   const handleLogout = () => {
-    localStorage.clear(); // Clear token or user info if needed
-    navigate("/login"); // Redirect to login page
+    localStorage.clear();
+    navigate("/login");
   };
-
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    setUser(storedUser);
-  }, [sidebarOpen]);
 
   return (
     <>
@@ -160,12 +201,46 @@ const Navbar = ({ onSearch }) => {
               onClick={handleClearClick}
               style={{
                 borderRadius: "6px",
-                backgroundColor: "#4B5550", // Match the Search button color
+                backgroundColor: "#4B5550",
               }}
             >
               Clear
             </Button>
           </form>
+          {searchHistory.length > 0 && (
+  <div
+    style={{
+      marginTop: "6px",
+      padding: "8px",
+      borderRadius: "8px",
+      backgroundColor: "#f9f9f9",
+      boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+      maxHeight: "150px",
+      overflowY: "auto",
+    }}
+  >
+    <strong>Recent Searches:</strong>
+    <ul style={{ listStyle: "none", paddingLeft: 0, marginTop: "4px" }}>
+      {searchHistory.map((city, index) => (
+        <li
+          key={index}
+          style={{
+            cursor: "pointer",
+            padding: "4px 0",
+            borderBottom: "1px solid #eee",
+          }}
+          onClick={() => {
+            setSearchCity(city);
+            onSearch(city);
+          }}
+        >
+          {city}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
           {errorMessage && (
             <span
               style={{
@@ -218,7 +293,7 @@ const Navbar = ({ onSearch }) => {
           right: sidebarOpen ? 0 : "-300px",
           height: "100vh",
           width: "300px",
-          backgroundColor: "rgba(135, 206, 235, 0.7)", // transparent skyblue
+          backgroundColor: "rgba(135, 206, 235, 0.7)",
           backdropFilter: "blur(10px)",
           boxShadow: "-2px 0 8px rgba(0, 0, 0, 0.1)",
           transition: "right 0.3s ease-in-out",
