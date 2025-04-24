@@ -62,14 +62,23 @@ app.post("/login", async (req, res) => {
       return res.status(400).json({ error: "Incorrect password" });
     }
 
+    // Generate token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+    // Send token along with user data
     res.json({
       message: "Login successful",
-      user: { name: user.name, email: user.email }
+      user: {
+        name: user.name,
+        email: user.email,
+        token: token,
+      },
     });
   } catch (err) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 // Forgot Password
 app.post("/forgot-password", (req, res) => {
