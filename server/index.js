@@ -138,27 +138,31 @@ app.listen(PORT, () => {
 
 
 // Save search city to history
+const jwt = require("jsonwebtoken");
+
 app.post("/search-history", async (req, res) => {
-  const { email, city } = req.body;
+  const token = req.headers.authorization?.split(" ")[1];
+  const { city } = req.body;
+
+  if (!token) return res.status(401).json({ error: "Unauthorized" });
 
   try {
-    const user = await UsersModel.findOne({ email });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await UsersModel.findById(decoded.id);
 
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
+    if (!user) return res.status(404).json({ error: "User not found" });
 
     // Avoid duplicate consecutive entries
-    if (user.searchHistory[user.searchHistory.length - 1] !== city) {
-      user.searchHistory.push(city);
-      if (user.searchHistory.length > 10) {
-        user.searchHistory.shift(); // keep only the latest 10
-      }
+    if (!user.searchHistory.includes(formattedCity)) {
+      user.searchHistory.push(formattedCity);
+      if (user.searchHistory.length > 10) user.searchHistory.shift();
       await user.save();
     }
+    
 
     res.json({ message: "Search saved", history: user.searchHistory });
   } catch (err) {
     res.status(500).json({ error: "Failed to save search history" });
   }
 });
+
