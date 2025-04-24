@@ -36,27 +36,42 @@ const Navbar = ({ onSearch }) => {
 
   const handleSearchClick = async () => {
     if (!searchCity.trim()) return;
-
+  
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=${
           import.meta.env.VITE_OPENWEATHERMAP_API_KEY
         }`
       );
-
+  
       const data = await res.json();
-
+  
       if (data.cod !== 200) {
         setErrorMessage("⚠️ City not found. Please enter a valid city.");
         setTimeout(() => setErrorMessage(""), 2000);
       } else {
         setErrorMessage("");
         onSearch(searchCity);
-
-        // Update the search history by adding the new search (if it's not already in the history)
+  
+        // ✅ Save to backend
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user && user.token) {
+          await fetch("https://weatherradar-1-o4ho.onrender.com/search-history", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user.token}`,
+            },
+            body: JSON.stringify({
+              city: searchCity,
+            }),
+          });
+        }
+  
+        // ✅ Update local UI history
         setSearchHistory((prevHistory) => {
           if (!prevHistory.includes(searchCity)) {
-            return [searchCity, ...prevHistory]; // Add new search at the beginning
+            return [searchCity, ...prevHistory];
           }
           return prevHistory;
         });
@@ -66,6 +81,7 @@ const Navbar = ({ onSearch }) => {
       setTimeout(() => setErrorMessage(""), 2000);
     }
   };
+  
 
   const handleClearClick = () => {
     setSearchCity("");
