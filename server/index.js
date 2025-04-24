@@ -164,3 +164,17 @@ app.post("/search-history", async (req, res) => {
   }
 });
 
+app.get("/search-history/:email", async (req, res) => {
+  try {
+    const user = await UsersModel.findOne({ email: req.params.email });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json({ history: user.searchHistory });
+  } catch (err) {
+    console.error("❌ Error in GET /search-history:", err);
+    res.status(500).json({ error: "Failed to fetch search history" });
+  }
+});
