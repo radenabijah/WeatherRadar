@@ -138,8 +138,6 @@ app.listen(PORT, () => {
 
 
 // Save search city to history
-const jwt = require("jsonwebtoken");
-
 app.post("/search-history", async (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
   const { city } = req.body;
