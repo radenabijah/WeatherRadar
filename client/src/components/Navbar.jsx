@@ -54,7 +54,7 @@ const Navbar = ({ onSearch }) => {
         onSearch(searchCity);
   
         // ✅ Save to backend
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem("users"));
         if (user && user.token) {
           await fetch("https://weatherradar-1-o4ho.onrender.com/search-history", {
             method: "POST",
