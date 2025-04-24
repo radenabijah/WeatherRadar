@@ -4,10 +4,7 @@ const UsersSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
-  searchHistory: {
-    type: [String],
-    default: [],
-  }
+  searchHistory: [String],
   
 });
 
