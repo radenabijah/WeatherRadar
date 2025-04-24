@@ -15,7 +15,6 @@ const Navbar = ({ onSearch }) => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
 
-
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
@@ -38,52 +37,53 @@ const Navbar = ({ onSearch }) => {
 
   const handleSearchClick = async () => {
     if (!searchCity.trim()) return;
-  
+
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=metric&appid=${
           import.meta.env.VITE_OPENWEATHERMAP_API_KEY
         }`
       );
-  
+
       const data = await res.json();
-  
+
       if (data.cod !== 200) {
         setErrorMessage("⚠️ City not found. Please enter a valid city.");
         setTimeout(() => setErrorMessage(""), 2000);
       } else {
         setErrorMessage("");
         onSearch(searchCity);
-  
+
         // ✅ Save to backend
         const user = JSON.parse(localStorage.getItem("user"));
         if (user && user.token) {
-          await fetch("https://weatherradar-1-o4ho.onrender.com/search-history", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${user.token}`,
-            },
-            body: JSON.stringify({
-              city: searchCity,
-              email: user.email,
-            }),
-          });
+          await fetch(
+            "https://weatherradar-1-o4ho.onrender.com/search-history",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user.token}`,
+              },
+              body: JSON.stringify({
+                city: searchCity,
+                email: user.email,
+              }),
+            }
+          );
         }
-  
+
         // ✅ Update local UI history
         setSearchHistory((prevHistory) => {
           const updated = prevHistory.filter((city) => city !== searchCity);
           return [searchCity, ...updated];
         });
-        
       }
     } catch (err) {
       setErrorMessage("❌ Failed to fetch data. Please try again.");
       setTimeout(() => setErrorMessage(""), 2000);
     }
   };
-  
 
   const handleClearClick = () => {
     setSearchCity("");
@@ -194,19 +194,71 @@ const Navbar = ({ onSearch }) => {
             }}
             style={{ display: "flex", alignItems: "center", gap: "6px" }}
           >
-            <TextField
-  style={{
-    backgroundColor: "white",
-    borderRadius: "2rem",
-    width: "28rem",
-  }}
-  placeholder="Search city"
-  variant="outlined"
-  value={searchCity}
-  onChange={(e) => setSearchCity(e.target.value)}
-  onFocus={() => setIsFocused(true)}
-  onBlur={() => setTimeout(() => setIsFocused(false), 100)} // delay to allow click
-/>
+            <div style={{ position: "relative", width: "28rem" }}>
+              <TextField
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "2rem",
+                  width: "100%",
+                }}
+                placeholder="Search city"
+                variant="outlined"
+                value={searchCity}
+                onChange={(e) => setSearchCity(e.target.value)}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setTimeout(() => setIsFocused(false), 100)} // delay to allow click
+              />
+
+              {searchHistory.length > 0 && isFocused && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    width: "100%",
+                    backgroundColor: "white",
+                    border: "1px solid #ccc",
+                    borderRadius: "6px",
+                    marginTop: "4px",
+                    zIndex: 10,
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                    maxHeight: "200px",
+                    overflowY: "auto",
+                  }}
+                >
+                  {searchHistory
+                    .filter((city) =>
+                      city.toLowerCase().includes(searchCity.toLowerCase())
+                    )
+                    .map((city, index) => (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          setSearchCity(city);
+                          setIsFocused(false);
+                          onSearch(city);
+                        }}
+                        style={{
+                          padding: "8px 16px",
+                          cursor: "pointer",
+                          borderBottom:
+                            index !== searchHistory.length - 1
+                              ? "1px solid #eee"
+                              : "none",
+                        }}
+                        onMouseOver={(e) =>
+                          (e.target.style.backgroundColor = "#f2f2f2")
+                        }
+                        onMouseOut={(e) =>
+                          (e.target.style.backgroundColor = "white")
+                        }
+                      >
+                        {city}
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
 
             <Button
               variant="contained"
@@ -229,54 +281,6 @@ const Navbar = ({ onSearch }) => {
               Clear
             </Button>
           </form>
-          {searchHistory.length > 0 && isFocused && (
-  <div
-    style={{
-      position: "absolute",
-      width: "28rem",
-      backgroundColor: "white",
-      border: "1px solid #ccc",
-      borderRadius: "6px",
-      marginTop: "2px",
-      zIndex: 10,
-      boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-      maxHeight: "200px",
-      overflowY: "auto",
-    }}
-  >
-    {searchHistory
-      .filter((city) =>
-        city.toLowerCase().includes(searchCity.toLowerCase())
-      )
-      .map((city, index) => (
-        <div
-          key={index}
-          onClick={() => {
-            setSearchCity(city);
-            setIsFocused(false);
-            onSearch(city);
-          }}
-          style={{
-            padding: "8px 16px",
-            cursor: "pointer",
-            borderBottom:
-              index !== searchHistory.length - 1
-                ? "1px solid #eee"
-                : "none",
-          }}
-          onMouseOver={(e) =>
-            (e.target.style.backgroundColor = "#f2f2f2")
-          }
-          onMouseOut={(e) =>
-            (e.target.style.backgroundColor = "white")
-          }
-        >
-          {city}
-        </div>
-      ))}
-  </div>
-)}
-
 
           {errorMessage && (
             <span
