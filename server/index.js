@@ -142,26 +142,30 @@ app.post("/search-history", async (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
   const { city } = req.body;
 
-  console.log("Received city:", city);
-  console.log("Received token:", token);
+  console.log("📥 Incoming city:", city);
 
   if (!token) return res.status(401).json({ error: "Unauthorized" });
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded JWT:", decoded);
-
     const user = await UsersModel.findById(decoded.id);
+
     if (!user) return res.status(404).json({ error: "User not found" });
 
     const formattedCity = city.trim().toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
-    console.log("Formatted city:", formattedCity);
+
+    console.log("✅ Found user:", user.email);
+    console.log("🕵️ Existing searchHistory:", user.searchHistory);
 
     if (!user.searchHistory.includes(formattedCity)) {
       user.searchHistory.push(formattedCity);
+
       if (user.searchHistory.length > 10) user.searchHistory.shift();
-      await user.save(); // 👈 Important step
-      console.log("User saved with new history:", user.searchHistory);
+
+      console.log("📌 Updated searchHistory:", user.searchHistory);
+
+      await user.save();
+      console.log("💾 User saved!");
     }
 
     res.json({ message: "Search saved", history: user.searchHistory });
@@ -170,6 +174,7 @@ app.post("/search-history", async (req, res) => {
     res.status(500).json({ error: "Failed to save search history" });
   }
 });
+
 
 
 
