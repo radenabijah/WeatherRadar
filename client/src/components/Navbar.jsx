@@ -13,6 +13,8 @@ const Navbar = ({ onSearch }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [searchHistory, setSearchHistory] = useState([]);
+  const [isFocused, setIsFocused] = useState(false);
+
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -71,11 +73,10 @@ const Navbar = ({ onSearch }) => {
   
         // ✅ Update local UI history
         setSearchHistory((prevHistory) => {
-          if (!prevHistory.includes(searchCity)) {
-            return [searchCity, ...prevHistory];
-          }
-          return prevHistory;
+          const updated = prevHistory.filter((city) => city !== searchCity);
+          return [searchCity, ...updated];
         });
+        
       }
     } catch (err) {
       setErrorMessage("❌ Failed to fetch data. Please try again.");
@@ -194,16 +195,19 @@ const Navbar = ({ onSearch }) => {
             style={{ display: "flex", alignItems: "center", gap: "6px" }}
           >
             <TextField
-              style={{
-                backgroundColor: "white",
-                borderRadius: "2rem",
-                width: "28rem",
-              }}
-              placeholder="Search city"
-              variant="outlined"
-              value={searchCity}
-              onChange={(e) => setSearchCity(e.target.value)}
-            />
+  style={{
+    backgroundColor: "white",
+    borderRadius: "2rem",
+    width: "28rem",
+  }}
+  placeholder="Search city"
+  variant="outlined"
+  value={searchCity}
+  onChange={(e) => setSearchCity(e.target.value)}
+  onFocus={() => setIsFocused(true)}
+  onBlur={() => setTimeout(() => setIsFocused(false), 100)} // delay to allow click
+/>
+
             <Button
               variant="contained"
               type="submit"
@@ -225,46 +229,54 @@ const Navbar = ({ onSearch }) => {
               Clear
             </Button>
           </form>
-          {searchHistory.length > 0 && (
-            <div
-              style={{
-                position: "absolute",
-                top: "100%",
-                left: 0,
-                width: "100%",
-                backgroundColor: "white",
-                border: "1px solid #ccc",
-                borderRadius: "6px",
-                marginTop: "4px",
-                zIndex: 10,
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-              }}
-            >
-              {searchHistory.map((city, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    setSearchCity(city);
-                    onSearch(city);
-                  }}
-                  style={{
-                    padding: "8px 16px",
-                    cursor: "pointer",
-                    borderBottom:
-                      index !== searchHistory.length - 1
-                        ? "1px solid #eee"
-                        : "none",
-                  }}
-                  onMouseOver={(e) =>
-                    (e.target.style.backgroundColor = "#f2f2f2")
-                  }
-                  onMouseOut={(e) => (e.target.style.backgroundColor = "white")}
-                >
-                  {city}
-                </div>
-              ))}
-            </div>
-          )}
+          {searchHistory.length > 0 && isFocused && (
+  <div
+    style={{
+      position: "absolute",
+      width: "28rem",
+      backgroundColor: "white",
+      border: "1px solid #ccc",
+      borderRadius: "6px",
+      marginTop: "2px",
+      zIndex: 10,
+      boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+      maxHeight: "200px",
+      overflowY: "auto",
+    }}
+  >
+    {searchHistory
+      .filter((city) =>
+        city.toLowerCase().includes(searchCity.toLowerCase())
+      )
+      .map((city, index) => (
+        <div
+          key={index}
+          onClick={() => {
+            setSearchCity(city);
+            setIsFocused(false);
+            onSearch(city);
+          }}
+          style={{
+            padding: "8px 16px",
+            cursor: "pointer",
+            borderBottom:
+              index !== searchHistory.length - 1
+                ? "1px solid #eee"
+                : "none",
+          }}
+          onMouseOver={(e) =>
+            (e.target.style.backgroundColor = "#f2f2f2")
+          }
+          onMouseOut={(e) =>
+            (e.target.style.backgroundColor = "white")
+          }
+        >
+          {city}
+        </div>
+      ))}
+  </div>
+)}
+
 
           {errorMessage && (
             <span
