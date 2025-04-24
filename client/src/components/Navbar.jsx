@@ -112,7 +112,7 @@ const Navbar = ({ onSearch }) => {
             setErrorMessage("");
 
             // ✅ Save location search too
-            const user = JSON.parse(localStorage.getItem("user"));
+            const user = JSON.parse(localStorage.getItem("users"));
             if (user && user.email) {
               await fetch(
                 "https://weatherradar-1-o4ho.onrender.com/search-history",
