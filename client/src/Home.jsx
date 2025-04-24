@@ -101,7 +101,18 @@ function Home() {
           </div>
         </div>
       ) : (
-        <div>Loading...</div> // Show a loading message or spinner while data is being fetched
+        <div style={{
+          height: "70vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <div className="spinner" />
+          <p style={{ marginTop: "15px", color: "white", fontWeight: "bold" }}>
+            Fetching weather data...
+          </p>
+        </div> // Show a loading message or spinner while data is being fetched
       )}
     </div>
   );

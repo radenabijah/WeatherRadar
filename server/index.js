@@ -201,3 +201,7 @@ app.get("/search-history/:email", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch search history" });
   }
 });
+
+app.get('/ping', (req, res) => {
+  res.status(200).send('pong');
+});
