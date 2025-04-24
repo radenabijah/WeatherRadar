@@ -150,19 +150,23 @@ app.post("/search-history", async (req, res) => {
 
     if (!user) return res.status(404).json({ error: "User not found" });
 
+    // Capitalize city name (optional)
+    const formattedCity = city.trim().toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+
     // Avoid duplicate consecutive entries
     if (!user.searchHistory.includes(formattedCity)) {
       user.searchHistory.push(formattedCity);
       if (user.searchHistory.length > 10) user.searchHistory.shift();
       await user.save();
     }
-    
 
     res.json({ message: "Search saved", history: user.searchHistory });
   } catch (err) {
+    console.error("❌ Error saving search:", err);
     res.status(500).json({ error: "Failed to save search history" });
   }
 });
+
 
 app.get("/search-history/:email", async (req, res) => {
   try {
