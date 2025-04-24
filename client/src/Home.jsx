@@ -71,26 +71,14 @@ function Home() {
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div>
       <Navbar onSearch={handleSearch} />
-  
-      {/* Always render main layout, but blur it if loading */}
-      <div
-        style={{
-          filter:
-            weatherData && airQualityData && fiveDayForecast
-              ? "none"
-              : "blur(10px)",
-          pointerEvents:
-            weatherData && airQualityData && fiveDayForecast
-              ? "auto"
-              : "none",
-          transition: "filter 0.3s ease",
-        }}
-      >
+      {/* Ensure that the data exists before rendering components */}
+      {weatherData && airQualityData && fiveDayForecast ? (
         <div style={{ display: "flex", padding: "30px", gap: "20px" }}>
           <div style={{ flex: "1", marginRight: "10px" }}>
             <MainWeather weatherData={weatherData} />
+
             {fiveDayForecast && (
               <div style={{ marginTop: "20px" }}>
                 <FiveDayForecast forecastData={fiveDayForecast} />
@@ -109,39 +97,14 @@ function Home() {
               weatherData={weatherData}
               airQualityData={airQualityData}
             />
-            <ThreeHourForecast forecastData={fiveDayForecast} />
+            <ThreeHourForecast forecastData={fiveDayForecast} /> {/* Below */}
           </div>
         </div>
-      </div>
-  
-      {/* Loading Overlay */}
-      {!weatherData || !airQualityData || !fiveDayForecast ? (
-        <div
-          className="loading-overlay"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            backdropFilter: "blur(10px)",
-            backgroundColor: "rgba(0, 0, 0, 0.4)",
-            zIndex: 999,
-          }}
-        >
-          <div className="spinner" />
-          <p style={{ marginTop: "15px", color: "white", fontWeight: "bold" }}>
-            Warming up WeatherRadar backend...
-          </p>
-        </div>
-      ) : null}
+      ) : (
+        <div>Loading...</div> // Show a loading message or spinner while data is being fetched
+      )}
     </div>
   );
-  
 }
 
 export default Home;
