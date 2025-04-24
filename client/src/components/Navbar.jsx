@@ -54,7 +54,7 @@ const Navbar = ({ onSearch }) => {
         onSearch(searchCity);
   
         // ✅ Save to backend
-        const user = JSON.parse(localStorage.getItem("users"));
+        const user = JSON.parse(localStorage.getItem("user"));
         if (user && user.token) {
           await fetch("https://weatherradar-1-o4ho.onrender.com/search-history", {
             method: "POST",
@@ -64,6 +64,7 @@ const Navbar = ({ onSearch }) => {
             },
             body: JSON.stringify({
               city: searchCity,
+              email: user.email,
             }),
           });
         }
@@ -112,7 +113,7 @@ const Navbar = ({ onSearch }) => {
             setErrorMessage("");
 
             // ✅ Save location search too
-            const user = JSON.parse(localStorage.getItem("users"));
+            const user = JSON.parse(localStorage.getItem("user"));
             if (user && user.email) {
               await fetch(
                 "https://weatherradar-1-o4ho.onrender.com/search-history",
@@ -124,6 +125,7 @@ const Navbar = ({ onSearch }) => {
                   },
                   body: JSON.stringify({
                     city: data.name,
+                    email: user.email,
                   }),
                 }
               );
