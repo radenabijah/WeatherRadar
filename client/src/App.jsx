@@ -40,7 +40,7 @@ function App() {
         backgroundColor: "#f5f5f5"
       }}>
         <CircularProgress size={60} style={{ marginBottom: "20px" }} />
-        <p>Warming up WeatherRadar backend... 🔄</p>
+        <p>Connecting to WeatherRadar services... 🔌</p>
       </div>
     );
   }
