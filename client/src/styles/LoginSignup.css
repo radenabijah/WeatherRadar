@@ -152,25 +152,6 @@ form .error-message {
   width: 100%;
 }
 
-/* Remember Me Section */
-.remember-me {
-  display: flex;
-  align-items: center; /* Aligns checkbox and label vertically centered */
-  gap: 5px; /* Space between checkbox and label */
-  white-space: nowrap; /* Prevents text wrapping */
-}
-
-.remember-me label {
-  color: black; /* Change text color to black */
-}
-
-/* Checkbox */
-.remember-me input {
-  width: 15px;
-  height: 15px;
-  accent-color: #10b4dd; /* Change checkbox color */
-}
-
 /* Forgot Password Link - Same style as "Remember Me" */
 .forgot-password-text, .auth-box .forgot-password-text {
   color: black !important;

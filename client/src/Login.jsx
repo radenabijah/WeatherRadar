@@ -6,18 +6,9 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(""); 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const savedEmail = localStorage.getItem("rememberedEmail");
-    if (savedEmail) {
-      setEmail(savedEmail);
-      setRememberMe(true);
-    }
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,17 +24,9 @@ function Login() {
       const data = await res.json();
 
       if (data.message === "Login successful") {
-        if (rememberMe) {
-          localStorage.setItem("rememberedEmail", email);
-        } else {
-          localStorage.removeItem("rememberedEmail");
-        }
-
-        
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
         }
-
         navigate("/home");
       } else {
         setError(data.error || "⚠️ Invalid credentials!");
@@ -74,7 +57,6 @@ function Login() {
   return (
     <div>
       <div className="auth-container">
-        {/* Display error message above the login heading */}
         {error && (
           <div
             className={`error-message ${error === "HIDE" ? "fade-out" : ""}`}
@@ -125,16 +107,7 @@ function Login() {
               </div>
             </div>
 
-            <div className="remember-forgot-container">
-              <div className="remember-me">
-                <input
-                  type="checkbox"
-                  id="rememberMe"
-                  checked={rememberMe}
-                  onChange={() => setRememberMe(!rememberMe)}
-                />
-                <label htmlFor="rememberMe">Remember me</label>
-              </div>
+            <div className="forgot-password-only">
               <Link to="/forgot-password" className="forgot-password-text">
                 Forgot Password?
               </Link>
