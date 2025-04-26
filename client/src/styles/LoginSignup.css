@@ -144,8 +144,8 @@ form .error-message {
 /* Container to hold both elements side by side */
 .remember-forgot-container {
   display: flex;
-  justify-content: space-between; /* Pushes elements apart */
-  align-items: center; /* Aligns items vertically centered */
+  justify-content: flex-end; 
+  align-items: center; 
   font-size: 14px;
   color: white;
   margin-bottom: 10px;
