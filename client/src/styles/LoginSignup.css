@@ -84,12 +84,22 @@ body {
   background-color: #0056b3;
 }
 
-/* Button Hover Effects */
+/* Button Hover Effects - for big buttons only */
 .auth-box button:hover,
-.auth-box a:hover {
+.auth-box a.btn-signup:hover,
+.auth-box a.login-button:hover {
   background: #2358cc;
   transform: scale(1.05);
 }
+
+/* Forgot Password Hover - simple underline only */
+.auth-box .forgot-password-text:hover {
+  background: none;
+  transform: none;
+  text-decoration: underline;
+  color: black;
+}
+
 
 /* Ensure error messages are black */
 .error-message {
@@ -179,11 +189,6 @@ form .error-message {
   font-weight: normal;
   color: black !important;
   text-decoration: none;
-}
-
-
-.auth-box .forgot-password-text:hover {
-  text-decoration: underline;
 }
 
 
