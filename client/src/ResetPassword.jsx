@@ -25,7 +25,6 @@ function ResetPassword() {
       .then((res) => {
         if (res.data.Status === "Success") {
           setMessage("✅ Password updated successfully! Please return to the previous page to continue.");
-          setTimeout(() => navigate("/login"), 10000);
         } else {
           setMessage(res.data.Status || "❌ Password reset failed.");
         }
